@@ -60,6 +60,7 @@ app.get('/register.html', (req, res) => {
 app.get("/clientPage/dataOverview.html", (req, res) => {
   res.sendFile(__dirname+"/clientPage/dataOverview.html");
 });
+
 app.get("/doctorPage/changeRisk.html", (req, res) => {
   res.sendFile(__dirname+"/doctorPage/changeRisk.html");
 });

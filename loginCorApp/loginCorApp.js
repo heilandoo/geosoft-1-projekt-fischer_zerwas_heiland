@@ -38,6 +38,10 @@ function promise(){
     });
 }
 function checkUserInformation(database){
+  if (user.username==''|| user.password==''){
+    alert("Eingabe fehlt");
+    return;
+  }
   for (var i=0; i<database.length; i++){
     //database.parse();
     console.log(database[i].username);
