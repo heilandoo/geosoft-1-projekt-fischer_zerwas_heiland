@@ -21,8 +21,11 @@
             <input type="password" name="password" id="password"/>
             <input type="checkbox" id="doc" >
             <label for="doc">als Arzt registrieren</label>
-            <input type="button" value="registrieren" id="submit" onclick="checkDatabase()"/>
-            <a href="/">Login</a>
+            <input type="button" value="Registrieren" id="submit" onclick="checkDatabase()"/> <br>
+            <div id="newAcc">
+              <a id="textRegister">Zurück zum Login:</a>
+            </div>
+            <input type="button" value="Login" onclick="window.location.href='/'" />
         </form>
       </div>
      <div id="databaseContent">
