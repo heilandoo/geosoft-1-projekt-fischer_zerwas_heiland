@@ -11,7 +11,7 @@ function checkDatabase(){
   }
   else{ doc=false;}
   console.log(doc);
-  user= {"username": username, "password": password, "doc":doc};
+  user= {"username": username, "password": password, "doc":doc, "risk":0, "test":false, "rides":" "};
   console.log(user);
   //addToDatabase(user);
   fetchDatabase();
