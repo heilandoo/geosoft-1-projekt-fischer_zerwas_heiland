@@ -19,7 +19,9 @@ function checkDatabase(){
   }
 
 function checkUser(database){
-
+  if (user.username==''|| user.password==''){
+    alert("Eingabe fehlt");
+    return;}
   console.log(database.length);
   if (database.length==0){
   	addToDatabase(user);
