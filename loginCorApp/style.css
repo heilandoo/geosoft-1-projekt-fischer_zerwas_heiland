@@ -1,5 +1,5 @@
 h2{
-background-color: #ADDF;
+background-color: #70dbdb;
 padding: 30px 35px;
 margin: -10px -50px;
 text-align:center;
@@ -63,7 +63,7 @@ color: black;
 }
 input[type=button]{
 font-size: 16px;
-background: linear-gradient(#ADDF 5%, #ADCF 100%);
+background: #70dbdb;
 border: 1px solid #AAAA;
 color: #4E4D4B;
 font-weight: bold;
@@ -74,5 +74,58 @@ padding: 10px 0;
 outline:none;
 }
 input[type=button]:hover{
-background: linear-gradient(#ACAB 5%, #ACBD 100%);
+background: #7FFFD4
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 2;
+}
+
+input[type="checkbox"] + label:before {
+  width: 60px;
+  height: 30px;
+  border-radius: 30px;
+  border: 2px solid #ddd;
+  background-color: #EEE;
+  content: "";
+  margin-right: 15px;
+  transition: background-color 0.5s linear;
+}
+
+input[type="checkbox"] + label:after {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  background-color: #fff;
+  content: "";
+  transition: margin 0.1s linear;
+  box-shadow: 0px 0px 5px #aaa;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+}
+
+input[type="checkbox"]:checked + label:before {
+  background-color: #2b8718;
+}
+
+input[type="checkbox"]:checked + label:after {
+  margin: 0 0 0 30px;
+}
+
+#newAcc {
+  padding: 10px;
+  width: 280px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
 }
