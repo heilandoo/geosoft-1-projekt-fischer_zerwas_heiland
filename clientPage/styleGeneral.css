@@ -13,11 +13,34 @@ ul {
   padding: 0;
 }
 
-#mapid { height: 180px; }
+.head {
+  max-width: 1400px;
+  margin: auto;
+}
+
+.container-fluid {
+  /*height: 600px;
+  width: 800px;
+  margin: auto;*/
+  padding: 10px;
+}
+
+#mainContainer {
+  max-width: 1000px;
+  padding: 40px;
+  margin: auto;
+}
+
+#mapid {
+  height: 450px;
+  width: 400px;
+  float: right;
+}
 
 #savedRides, #patients {
   height: 450px;
-  width: 350px;
+  width: 400px;
   background-color: lightgray;
   padding: 10px;
+  float: left;
 }
