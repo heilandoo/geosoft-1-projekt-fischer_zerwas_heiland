@@ -32,15 +32,98 @@ ul {
 }
 
 #mapid {
-  height: 450px;
+  height: 750px;
   width: 400px;
   float: right;
 }
 
 #savedRides, #patients {
-  height: 450px;
+  height: 750px;
   width: 400px;
   background-color: lightgray;
   padding: 10px;
   float: left;
+  overflow-y: auto;
 }
+
+#patientInfoHead {
+  font-weight: bold;
+  width: 400px;
+  height: 50px;
+  padding: 10px;
+}
+
+#patientInfoExplainer {
+  font-weight: normal;
+  width: 400px;
+  height: 150px;
+  padding: 10px;
+}
+input[type=button]{
+font-size: 16px;
+background: #4080bf;
+border: 1px solid #AAAA;
+color: #4E4D4B;
+font-weight: bold;
+cursor: pointer;
+width: 100%;
+border-radius: 5px;
+padding: 10px 0;
+outline:none;
+}
+
+input[type=button]:hover{
+background: #70dbdb
+}
+
+input[type="checkbox"] + label::before {
+  margin-right: 5px;
+}
+
+/*
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 2;
+}
+
+input[type="checkbox"] + label:before {
+  width: 60px;
+  height: 30px;
+  border-radius: 30px;
+  border: 2px solid #ddd;
+  background-color: #EEE;
+  content: "";
+  margin-right: 15px;
+  transition: background-color 0.5s linear;
+}
+
+input[type="checkbox"] + label:after {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  background-color: #fff;
+  content: "";
+  transition: margin 0.1s linear;
+  box-shadow: 0px 0px 5px #aaa;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+}
+
+input[type="checkbox"]:checked + label:before {
+  background-color: #2b8718;
+}
+
+input[type="checkbox"]:checked + label:after {
+  margin: 0 0 0 30px;
+}
+
+*/

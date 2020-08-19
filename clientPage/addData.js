@@ -12,7 +12,13 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1IjoibWE5ZGFsZW44IiwiYSI6ImNrYTZ4ZGdqNDBibWUyeHBuN3JmN2lrdDcifQ.SgZHAThfZLyx2Avk3th2Lg'
 }).addTo(mymap);
 
-var resource = "https://transit.hereapi.com/v8/stations";
+//var x = new H.service.Platform({
+//  apikey: 'yZ1g1aCLN8rvnPJdGaO697MpL44zvnU1aHx2IwgqNgA'
+// });
+
+var apiKey = 'yZ1g1aCLN8rvnPJdGaO697MpL44zvnU1aHx2IwgqNgA';
+
+var resource = "https://route.ls.hereapi.com/routing/7.2/calculateroute.json?waypoint0=51.5099%2C-0.1344&waypoint1=51.5181%2C-0.1264&mode=fastest%3BpublicTransportTimeTable&combineChange=true&departure=2020-08-18T10:00:00&apiKey="+apiKey;
 var x = new XMLHttpRequest();
 var pointCollection;
 
