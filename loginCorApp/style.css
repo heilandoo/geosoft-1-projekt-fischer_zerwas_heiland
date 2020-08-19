@@ -1,5 +1,5 @@
 h2{
-background-color: #70dbdb;
+background-color: #4080bf;
 padding: 30px 35px;
 margin: -10px -50px;
 text-align:center;
@@ -63,7 +63,7 @@ color: black;
 }
 input[type=button]{
 font-size: 16px;
-background: #70dbdb;
+background: #4080bf;
 border: 1px solid #AAAA;
 color: #4E4D4B;
 font-weight: bold;
@@ -74,7 +74,7 @@ padding: 10px 0;
 outline:none;
 }
 input[type=button]:hover{
-background: #7FFFD4
+background: #70dbdb
 }
 
 input[type="checkbox"] {
