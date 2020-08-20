@@ -61,7 +61,7 @@ function dropDown(){
 });
 
 function createRidesList(){
-
+  document.getElementById('ul').innerHTML='';
   console.log(chosenPatient.rides.length);
   for(var i=0; i<chosenPatient.rides.length; i++){
     var ul = document.getElementById('ul');
@@ -82,8 +82,8 @@ function createRidesList(){
 
     li.appendChild(checkbox);
     li.appendChild(label);
-    ul.appendChild(li);
     li.appendChild(br);
+    ul.appendChild(li);
 
   }
 }

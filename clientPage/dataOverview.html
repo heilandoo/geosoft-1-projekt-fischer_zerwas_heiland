@@ -83,7 +83,17 @@
   <body>
     <div id="mainContainer" class="row">
       <div class="col-lg-6" id="savedRides">
-        <p>Ihre gespeicherten Fahrten:</p>
+        <p id='general'></p>
+        <p id="patientInfoHead">Status einer Covid-19 Erkrankung: </p>
+        <p id='patientCoronaStatus'></p>
+
+
+        <p id="patientInfoHead">Ermittelte Risikostufe: </p>
+        <p id='patientRisk'></p>
+
+
+        <p id="patientInfoHead">Eingetragene Fahrten: </p>
+        <p id='patientRides'><ul id='ul'><br/> </ul></p>
       </div>
       <div class="col-lg-6" id="mapid"></div>
         <script src="/clientPage/dataOverview.js"/></script>
