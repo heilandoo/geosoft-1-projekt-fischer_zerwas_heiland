@@ -11,6 +11,7 @@
 // jshint node: true
 // jshint -W097
 console.log("Moin");
+var ObjectId = require('mongodb').ObjectID;
 let bodyParser = require('body-parser');
 const express = require('express');
 const mongodb = require('mongodb');
@@ -88,7 +89,7 @@ console.log("POST",req.body);
 
 // deletes data from the database
 app.delete('/delete-input', (req, res)=> {
-  //console.log(req.body._id);
+  console.log(req.body);
   app.locals.db.collection('items').deleteOne({"_id":ObjectId(req.body._id)});
   });
 
