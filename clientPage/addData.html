@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+<div class="head">
+
   <head>
     <meta charset="utf-8">
     <title>Fahrten hinzufügen</title>
@@ -60,40 +62,63 @@
       <h3>Tragen Sie hier von Ihnen gemachte Fahrten ein.</h3>
     </div>
   </head>
+</div>
   <body>
     <div class="row" id="mainContainer">
-
-    <div class="col-md-12"id="mapid" style= 'height: 400px' ></div>
-    <div id="userInput">
-      <label for="start">Startpunkt</label>
-      <select name="start" id="start"></select>
-
-      <label for="destination">Zielpunkt</label>
-      <select name="destination" id="destination"></select>
+      <div class="col-lg-6" id="savedRides">
+        <p id='general'></p>
+        <div id="userInput">
 
 
-      <button type="button" onclick="fetchingRoute()">Suchen</button>
 
-    </div>
 
-    <div id="input">
 
-      <button type="button" onclick="getLocation()">Aktuelle Position</button>
-      <button type="button" onclick="changeVisibility()">Adresse wählen</button>
-      <button type="button" onclick="setMarker()">in Karte wählen</button>
-      
-<div id='adressInput' style="visibility: hidden">
-      <label for='street'><strong>Straße</strong> </label>
-      <input type='text' id='street' >
 
-      <br/><label for='nr'><strong>Hausnummer</strong></label>
-      <input type='number' id='nr' min='0' max='000'>
+        </div>
 
-      <br/><label for='city'><strong>Stadt</strong> </label>
-      <input type='text' id='city' >
-      <button type="button" onclick="geocoding()">OK</button>
-  </div>
-    </div>
+
+
+        <p id="patientInfoHead">Neue Fahrt hinzufügen: </p>
+        <p id='patientCoronaStatus'></p>
+
+      <div id="userInput">
+        <p id="patientInfoHead">Start: </p>
+        <label for="start">Startpunkt</label>
+        <select name="start" id="start"></select>
+        <p id='patientRisk'></p>
+
+        <p id="patientInfoHead">Ziel: </p>
+        <label for="destination">Zielpunkt</label>
+        <select name="destination" id="destination"></select>
+
+        <p id="patientInfoHead">Zeitpunkt: </p>
+
+        <button id="buttonAddData" type="button" onclick="fetchingRoute()">Suchen</button>
+      </div>
+
+        <div id="input">
+
+          <button id="buttonAddData" type="button" onclick="getLocation()">Aktuelle Position</button>
+          <button id="buttonAddData" type="button" onclick="changeVisibility()">Adresse wählen</button>
+          <button id="buttonAddData" type="button" onclick="setMarker()">in Karte wählen</button>
+
+          <div id='adressInput' style="visibility: hidden">
+          <label for='street'><strong>Straße</strong> </label>
+          <input type='text' id='street' >
+
+          <br/><label for='nr'><strong>Hausnummer</strong></label>
+          <input type='number' id='nr' min='0' max='000'>
+
+          <br/><label for='city'><strong>Stadt</strong> </label>
+          <input type='text' id='city' >
+          <button id="buttonAddData" type="button" onclick="geocoding()">OK</button>
+      </div>
+        </div>
+
+        <p id='patientRides'><ul id='ul'><br/> </ul></p>
+      </div>
+    <div class="col-lg-6"id="mapid"></div>
+
 
     <div id="error">    </div>
     <script src="/clientPage/addData.js"/></script>

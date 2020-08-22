@@ -3,7 +3,7 @@ background-color: #4080bf;
 color: white;
 text-align: center;
 margin: auto;
-width: 100%;
+width: 1400px;
 padding: 10px;
 }
 
@@ -26,19 +26,19 @@ ul {
 }
 
 #mainContainer {
-  max-width: 1000px;
+  max-width: 1400px;
   padding: 40px;
   margin: auto;
 }
 
 #mapid {
-  height: 750px;
+  height: 700px;
   width: 400px;
   float: right;
 }
 
 #savedRides, #patients {
-  height: 750px;
+  height: 700px;
   width: 400px;
   background-color: lightgray;
   padding: 10px;
@@ -74,6 +74,19 @@ outline:none;
 
 input[type=button]:hover{
 background: #70dbdb
+}
+
+#buttonAddData {
+  background-color: #4080bf;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 
 input[type="checkbox"] + label::before {
