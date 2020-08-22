@@ -64,6 +64,37 @@
     <div class="row" id="mainContainer">
 
     <div class="col-md-12"id="mapid" style= 'height: 400px' ></div>
+    <div id="userInput">
+      <label for="start">Startpunkt</label>
+      <select name="start" id="start"></select>
+
+      <label for="destination">Zielpunkt</label>
+      <select name="destination" id="destination"></select>
+
+
+      <button type="button" onclick="fetchingRoute()">Suchen</button>
+
+    </div>
+
+    <div id="input">
+
+      <button type="button" onclick="getLocation()">Aktuelle Position</button>
+      <button type="button" onclick="changeVisibility()">Adresse wählen</button>
+      <button type="button" onclick="setMarker()">in Karte wählen</button>
+      
+<div id='adressInput' style="visibility: hidden">
+      <label for='street'><strong>Straße</strong> </label>
+      <input type='text' id='street' >
+
+      <br/><label for='nr'><strong>Hausnummer</strong></label>
+      <input type='number' id='nr' min='0' max='000'>
+
+      <br/><label for='city'><strong>Stadt</strong> </label>
+      <input type='text' id='city' >
+      <button type="button" onclick="geocoding()">OK</button>
+  </div>
+    </div>
+
     <div id="error">    </div>
     <script src="/clientPage/addData.js"/></script>
   </div>
