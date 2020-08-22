@@ -19,9 +19,11 @@ function refreshDropdown(){
   var destination= document.getElementById('destination');
   var opt1 = null;
   var opt2 = null;
+  start.options.length=0;
+  destination.options.length=0;
 
   for(i = 0; i<inputStops.length; i++) {
-
+    console.log(inputStops[i].features[0].properties.name);
     opt1 = document.createElement('option');
     opt1.value = inputStops[i].features[0].properties.name;
     opt1.innerHTML = inputStops[i].features[0].properties.name;
@@ -99,15 +101,16 @@ function statechangecallback() {
   if (g.status == "200" && g.readyState == 4) {
 
     convertedAdress = g.responseText;
+    convertedAdress= JSON.parse(convertedAdress);
     let userAdress = {"type":"FeatureCollection",
       "features":[
           {"type": "Feature",
           "geometry":{"type": "Point", "coordinates":[ convertedAdress.features[0].geometry.coordinates]},
-          "properties":{ "name":"Adresse"}}]};
+          "properties":{ "name":"Adresse,"+JSON.stringify(convertedAdress.query[0]+' '+ convertedAdress.query[1]+' '+convertedAdress.query[2])}}]};
     console.log(convertedAdress);
-    convertedAdress= JSON.parse(convertedAdress);
     console.log(convertedAdress.features[0].geometry.coordinates);
-    convertedAdress=convertedAdress.features[0].geometry.coordinates;
+    inputStops.push(userAdress);
+    //convertedAdress=convertedAdress.features[0].geometry.coordinates;
     refreshDropdown();
     }
 }
