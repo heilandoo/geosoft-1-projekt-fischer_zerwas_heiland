@@ -87,6 +87,8 @@ console.log("POST",req.body);
   app.locals.db.collection('items').insertOne(req.body);
 });
 
+
+
 // deletes data from the database
 app.delete('/delete-input', (req, res)=> {
   console.log(req.body);
@@ -95,9 +97,9 @@ app.delete('/delete-input', (req, res)=> {
 
 // updates data of the database
 app.put('/update-input',(req, res)=>{
-//console.log('Does it work??? '+ req.body)
+//console.log('Does it work??? '+ req.body.rides);
   app.locals.db.collection('items').updateOne({"_id":ObjectId(req.body._id)},
-                                              {$set:{['geometry.coordinates'] : [req.body.geometry.coordinates]}});
+                                              {$set:{['rides'] : [req.body.rides]}});
 });
 
 app.listen(port,

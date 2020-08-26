@@ -52,7 +52,7 @@ async function fetchDatabase(){
     console.log(result[result.length-1]);
     currentClient=result[result.length-1];
     database=result;
-    deleteItem();
+    
 
     showData();
 

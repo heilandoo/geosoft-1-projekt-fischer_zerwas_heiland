@@ -1,10 +1,10 @@
 //LEAFLET MAP
-console.log("test");
-var chosenPatient;
-var patient;
+var currentClient=[];
+var database;
 var userCoordinates;
 var inputStops=[];
 var mymap = L.map('mapid').setView([51.653, 10.203], 6);
+fetchDatabase();
 
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaGVpbGFuZG9vIiwiYSI6ImNrYWM2MTN2YjFkaTgyd3F3czRwYmRhcWcifQ.ehq-ZqczEZiBcFwaZC0jDg', {
@@ -44,7 +44,7 @@ function setMarker(){
      if (type === 'marker') {
        mymap.on('click', function(e) {
     }),
-    layer.bindPopup('Your chosen Location: '+ layer.getLatLng()).openPopup();}
+    layer.bindPopup('Ausgewählte Position: '+ layer.getLatLng()).openPopup();}
 
 
     inputMarker=drawnItems.addLayer(layer);
@@ -243,8 +243,14 @@ function fetchingRoute(api){
 function statechangecallback() {
   if (x.status == "200" && x.readyState == 4) {
 
-    route = x.responseText;
+    route = JSON.parse(x.responseText);
     console.log(route);
+    drawRoute();
+    toGeoJson();
+    //addToDatabase(routeGeoJSON);
+    updateDB();
+
+
 
     }
 }
@@ -266,52 +272,113 @@ function loadcallback() {
     console.log(x.status);
   }
 }
-//https://transit.router.hereapi.com/v8/routes?apiKey=yZ1g1aCLN8rvnPJdGaO697MpL44zvnU1aHx2IwgqNgA&origin=51.9568,7.6345&destination=51.9694,7.5961&modes=bus&return=intermediate
-/*function createRidesList(){
 
-  console.log(chosenPatient.rides.length);
-  for(var i=0; i<chosenPatient.rides.length; i++){
-    var ul = document.getElementById('ul');
-    var li = document.createElement('li'+i);
-    var br = document.createElement('br');
-    var checkbox = document.createElement('input');
-    var label= document.createElement("label");
-    var description = document.createTextNode(chosenPatient.rides[i]);
+function drawRoute(){
+  var coordiArray=[];// enthält nur die Koordinaten der Strecke in der Richtigen Reihenfolge (Abschnittsweise Startpunkt, Zwischenhalte, Zielpunkt)
+  for (var i=0; i<route.routes[0].sections.length; i++){
+     if(route.routes[0].sections[i].type=='transit'){
+       console.log(route.routes[0].sections[i].departure.place.location.lat, route.routes[0].sections[i].departure.place.location.lng);
+       coordiArray.push([route.routes[0].sections[i].departure.place.location.lat, route.routes[0].sections[i].departure.place.location.lng]);
 
-    checkbox.type = "checkbox";
-    checkbox.id = "checkboxid" + i;
+       for (var j=0; j<route.routes[0].sections[i].intermediateStops.length; j++){
+         console.log(route.routes[0].sections[i].intermediateStops[j].departure.place.location.lat, route.routes[0].sections[i].intermediateStops[j].departure.place.location.lng);
+         coordiArray.push([route.routes[0].sections[i].intermediateStops[j].departure.place.location.lat, route.routes[0].sections[i].intermediateStops[j].departure.place.location.lng]);
+        }
+        console.log(route.routes[0].sections[i].arrival.place.location.lat, route.routes[0].sections[i].arrival.place.location.lng);
+        coordiArray.push([route.routes[0].sections[i].arrival.place.location.lat, route.routes[0].sections[i].arrival.place.location.lng]);
+     }
+   }console.log(coordiArray);
+   var popupStart = L.popup({
+                          autoClose: false}).setContent("Abfahrtsbahnhof");
+    var startMarker=L.marker(coordiArray[0]).addTo(mymap).bindPopup(popupStart).openPopup();//startpunkt== start der Nutzung von ÖPNV --> oder lieber startpunkt== eingegebener Startpunkt?
 
-    label.appendChild(checkbox);
-    label.appendChild(description);
+    var popupDesti = L.popup({
+                           autoClose: false}).setContent("Ankunftsbahnhof");
+     var destiMarker=L.marker(coordiArray[coordiArray.length-1]).addTo(mymap).bindPopup(popupDesti).openPopup();//ziel== ziel der Nutzung von ÖPNV --> oder lieber ziel== eingegebenes ziel?
 
-
-    //adds all elements to the website
-
-    li.appendChild(checkbox);
-    li.appendChild(label);
-    li.appendChild(br);
-    ul.appendChild(li);
-
-  }
+   var polyline=L.polyline(coordiArray, {color: 'blue'}).addTo(mymap);
+   mymap.fitBounds(polyline.getBounds());
 }
 
-  async function fetchDatabase(){
+var routeGeoJSON={"type":"FeatureCollection",
+"features":[]};
+function toGeoJson(){
+  console.log(route);
+    var geoJSON;
+
+
+
+  for(var k=0; k<route.routes[0].sections.length; k++){
+    if(route.routes[0].sections[k].type==='transit'){
+      //nur Abschnitte, welche ÖPNV beinhalten werden berücksichtigt
+      //ein Abschnitt ist die Strecke welche ohne Umsteigen zurückegelegt wird. Sobald ein Umstieg stattfindet, gibt es einen neuen ABfahrtsort, neue Zwischenhalte und einen weiteren Ankunftsort (wird nicht auf der KArte dargestellt)
+      //der Startpunkt des ersten Abschnittes wird als GeoJSON gespeichert und als erstes in das RoutenGeoJSON hinzugefügt
+       geoJSON = {
+              "type": "Feature",
+              "geometry":{"type": "Point", "coordinates":[route.routes[0].sections[k].departure.place.location.lng, route.routes[0].sections[k].departure.place.location.lat]},
+              "properties":{ "name":route.routes[0].sections[k].departure.place.name,
+                              "time":route.routes[0].sections[k].departure.time,
+                              "risk":0}};
+
+
+      routeGeoJSON.features.push(geoJSON);
+      //console.log(routeGeoJSON);
+
+      for (var j=0; j<route.routes[0].sections[k].intermediateStops.length; j++){
+        //alle Zwischenstops des Abschnittes werden als GeoJSON der Route angehängt
+        geoJSON = {
+               "type": "Feature",
+               "geometry":{"type": "Point", "coordinates":[route.routes[0].sections[k].intermediateStops[j].departure.place.location.lng, route.routes[0].sections[k].intermediateStops[j].departure.place.location.lat]},
+               "properties":{ "name":route.routes[0].sections[k].intermediateStops[j].departure.place.name,
+                               "time":route.routes[0].sections[k].intermediateStops[j].departure.time,
+                               "risk":0}};
+
+        routeGeoJSON.features.push(geoJSON);
+        //console.log(routeGeoJSON);
+      }
+      //das Ziel wird als GeoJSON der Route hinzugefügt
+      geoJSON = {
+             "type": "Feature",
+             "geometry":{"type": "Point", "coordinates":[route.routes[0].sections[k].arrival.place.location.lng, route.routes[0].sections[k].arrival.place.location.lat]},
+             "properties":{ "name":route.routes[0].sections[k].arrival.place.name,
+                             "time":route.routes[0].sections[k].arrival.time,
+                             "risk":0}};
+
+      //console.log(geoJSON.geometry.coordinates,geoJSON.properties.name,geoJSON.properties.time);
+      routeGeoJSON.features.push(geoJSON);
+      }
+  }console.log(routeGeoJSON);
+  currentClient.rides.push(routeGeoJSON);
+
+}
+
+function extractClientData(){
+  for(var i=0; i<database.length; i++){
+    if(database[i].username==currentClient.username){
+      currentClient=database[i];
+      console.log(currentClient);
+      console.log(currentClient.rides);
+      return;
+      }
+    }
+
+}
+
+async function fetchDatabase(){
 
     let result =await promise();
     //document.getElementById('databaseContent').innerHTML=JSON.stringify(result);
-    console.log(result);
+    console.log(result[result.length-1]);
+    currentClient=result[result.length-1];
     database=result;
-    console.log(database);
-  dropDown();
-
+    extractClientData();
   }
 
-*/
 /**
 *@function promise
 *@desc sends a request to the server via /item
 */
-/*
+
 function promise(){
 
   return new Promise(function (res, req){
@@ -323,10 +390,26 @@ function promise(){
     });
 }
 
-function addToDatabase(user){
-  fetch('/save-input', {
+function updateDB(){
+  var rides=currentClient.rides;
+  var addTo={"_id":currentClient._id, "rides":rides};
+  console.log(rides);
+
+  //server request- updating changed coordinates by _id
+  fetch("/update-input",{
+    method:'put',
+    body: JSON.stringify(addTo),
+    headers: {
+      'Content-Type': 'application/json'}
+    }).then(res=>{if (res.ok) return res.json();});
+    //location.reload();
+}
+function addToDatabase(routeGeoJSON){
+  var value=currentClient.rides.push(routeGeoJSON);
+  console.log(JSON.stringify(routeGeoJSON));
+	fetch('/add-input', {
                             method: 'post',
-                            body: JSON.stringify(user),
+                            body: JSON.stringify(value),
                             headers: {
                               'Accept': 'application/json',
                               'Content-Type': 'application/json'
@@ -335,4 +418,28 @@ function addToDatabase(user){
 
 
 }
-*/
+
+
+function deleteItem(){
+  var value=[];
+  var id=[];
+
+      value=currentClient;
+      id=currentClient._id;
+      console.log(value);
+      //server request - deleting checked item by _id
+      fetch("/delete-input",{
+        method:'delete',
+        body: JSON.stringify(value),
+        headers: {
+          'Content-Type': 'application/json'}
+        });//.then(res=>{if (res.ok) return res.json();}).then(showingDatabaseContent()); //reloading database content
+
+
+
+
+}
+
+
+
+//https://transit.router.hereapi.com/v8/routes?apiKey=yZ1g1aCLN8rvnPJdGaO697MpL44zvnU1aHx2IwgqNgA&origin=51.9568,7.6345&destination=51.9694,7.5961&modes=bus&return=intermediate
