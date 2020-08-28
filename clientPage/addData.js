@@ -1,8 +1,8 @@
 //LEAFLET MAP
-var currentClient=[];
+var currentClient;//eingeloggter Nutzer
 var database;
-var userCoordinates;
-var inputStops=[];
+var userCoordinates;//gewählte Koordinaten in der Karte, Marker
+var inputStops=[];//auswahlmöglichkeiten im Dropdown nach hinzufügen des Nutzers
 var mymap = L.map('mapid').setView([51.653, 10.203], 6);
 fetchDatabase();
 
@@ -18,7 +18,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 // creating a Toolbar on the Mapboxmap only option to set a marker
 
-
+//wird durch button aufgerufen, macht die Marker setzfunktion sichtbar
 function setMarker(){
   var drawnItems = new L.FeatureGroup();
   mymap.addLayer(drawnItems);
@@ -82,6 +82,7 @@ function showPosition(position) {
           "geometry":{"type": "Point", "coordinates":[ position.coords.longitude, position.coords.latitude]},
           "properties":{ "name":"aktuelle Position"}}]};
     //JSON.parse('{"userLocation":true}');
+    //runden der Koordinaten der Browserlocation
     userLocation.features[0].geometry.coordinates[0]=(userLocation.features[0].geometry.coordinates[0]).toFixed(3);
     userLocation.features[0].geometry.coordinates[1]=(userLocation.features[0].geometry.coordinates[1]).toFixed(3);
     console.log(userLocation.features[0].geometry.coordinates);
@@ -90,6 +91,7 @@ function showPosition(position) {
     //console.log(userLocation);
   refreshDropdown();
   }
+  //wird durch button aufgerufen,macht adress eingabe sichtbar
 function changeVisibility(){
   document.getElementById('adressInput').style.visibility='visible';
 }
@@ -165,7 +167,7 @@ function gloadcallback() {
     console.log(g.status);
   }
 }
-
+//wird nach hinzufügen einer neuen Nutzer eingabe aktualisiert und zwigt alle möglichkeiten im Dropdown an
 function refreshDropdown(){
   var start = document.getElementById('start');
   var destination= document.getElementById('destination');
@@ -189,6 +191,7 @@ function refreshDropdown(){
     }
 }
 
+//extrahiert alle notwendigen Informationen vom User und erstellt einen API Request link
 function creatingApi(){
   console.log(inputStops);
   var startInput=document.getElementById('start').value;
@@ -247,7 +250,6 @@ function statechangecallback() {
     console.log(route);
     drawRoute();
     toGeoJson();
-    //addToDatabase(routeGeoJSON);
     updateDB();
 
 
@@ -273,8 +275,12 @@ function loadcallback() {
   }
 }
 
+//stellt die neu hinzugefügte Route des Users auf der Karte dar
+//alle Koordinatenpaare die sich auf den ÖPNV beziehen werden in der richtigen Reihenfolge aus der Route gefiltert
 function drawRoute(){
   var coordiArray=[];// enthält nur die Koordinaten der Strecke in der Richtigen Reihenfolge (Abschnittsweise Startpunkt, Zwischenhalte, Zielpunkt)
+  //if(route.routes[0].length==0){alert('Keine Route gefunden. Überprüfe alle Angaben'); return;}
+  if(route.notices){alert('Keine Route gefunden. Überprüfe alle Angaben'); return;}
   for (var i=0; i<route.routes[0].sections.length; i++){
      if(route.routes[0].sections[i].type=='transit'){
        console.log(route.routes[0].sections[i].departure.place.location.lat, route.routes[0].sections[i].departure.place.location.lng);
@@ -300,6 +306,7 @@ function drawRoute(){
    mymap.fitBounds(polyline.getBounds());
 }
 
+//speichert die ausgewählte route in einem GEoJSON mit den relevanten Informationen
 var routeGeoJSON={"type":"FeatureCollection",
 "features":[]};
 function toGeoJson(){
@@ -307,7 +314,7 @@ function toGeoJson(){
     var geoJSON;
 
 
-
+  if(route.notices){return;}
   for(var k=0; k<route.routes[0].sections.length; k++){
     if(route.routes[0].sections[k].type==='transit'){
       //nur Abschnitte, welche ÖPNV beinhalten werden berücksichtigt
@@ -348,10 +355,11 @@ function toGeoJson(){
       routeGeoJSON.features.push(geoJSON);
       }
   }console.log(routeGeoJSON);
+
   currentClient.rides.push(routeGeoJSON);
 
 }
-
+//speichert die Informationen des aktuell eingeloggten Users
 function extractClientData(){
   for(var i=0; i<database.length; i++){
     if(database[i].username==currentClient.username){
@@ -389,7 +397,8 @@ function promise(){
     });
     });
 }
-
+//die Rides des aktuell eingeloggten Users werden überschrieben
+//Problem beim aktualisieren wird ein weiteres Array außenrum geschrieben
 function updateDB(){
   var rides=currentClient.rides;
   var addTo={"_id":currentClient._id, "rides":rides};

@@ -1,6 +1,5 @@
 //LEAFLET MAP
-console.log("test");
-var currentClient=[];
+var currentClient=[];//informationen des aktuell eingeloggten Users
 var database;
 
 
@@ -30,7 +29,7 @@ function showData(){
   }
 
 }
-
+//liste aller rides des Users
 function createRidesList(currentClient){
 
   var ul = document.getElementById('ul');
@@ -52,7 +51,7 @@ async function fetchDatabase(){
     console.log(result[result.length-1]);
     currentClient=result[result.length-1];
     database=result;
-    
+
 
     showData();
 
