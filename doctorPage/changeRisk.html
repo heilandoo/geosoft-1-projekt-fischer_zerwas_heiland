@@ -91,16 +91,26 @@
           <p id='patientCoronaStatus'></p>
           <input id="confirm" type="checkbox" />
           <label for="confirm">Positiver Test?</label>
-
+          <br/>
+          <input id="timeFrame" type="checkbox" autocomplete="off">Zeitraum hinzufügen</input>
+          <div id='addTime' style="visibility: hidden" >
+            <label for="contaminatedStart">Beginn des Risikozeitraumes</label>
+            <input id="contaminatedStart" type="date" name="contaminatedStart" placeholder="YYYY-MM-DD" value="DD:MM:JJJJ">
+            <br/>
+            <label for="contaminatedEnd">Ende des Risikozeitraumes</label>
+            <input id="contaminatedEnd" type="date" name="contaminatedEnd" placeholder="YYYY-MM-DD" value="DD:MM:JJJJ">
+          </div>
           <p id="patientInfoHead">Ermittelte Risikostufe: </p>
           <p id='patientRisk'></p>
 
 
           <p id="patientInfoHead">Eingetragene Fahrten: </p>
-          <p id='patientRides'><ul id='ul'><br/> </ul></p>
+          <div id="rides">
+            <p id='patientRides'><ul id='ul'><br/> </ul></p>
+          </div>
 
 
-          <input type="button" value="Aktualisieren" id="refresh" onclick=""/>
+          <input type="button" value="Aktualisieren" id="refresh" onclick="checkChanges()"/>
 
       </div>
     </div>

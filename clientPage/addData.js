@@ -252,8 +252,6 @@ function statechangecallback() {
     toGeoJson();
     updateDB();
 
-
-
     }
 }
 
@@ -307,9 +305,10 @@ function drawRoute(){
 }
 
 //speichert die ausgewählte route in einem GEoJSON mit den relevanten Informationen
-var routeGeoJSON={"type":"FeatureCollection",
-"features":[]};
+var routeGeoJSON={"type":"FeaturesCollection", "contaminatedRide":0,
+"features":[],};
 function toGeoJson(){
+
   console.log(route);
     var geoJSON;
 
@@ -325,7 +324,8 @@ function toGeoJson(){
               "geometry":{"type": "Point", "coordinates":[route.routes[0].sections[k].departure.place.location.lng, route.routes[0].sections[k].departure.place.location.lat]},
               "properties":{ "name":route.routes[0].sections[k].departure.place.name,
                               "time":route.routes[0].sections[k].departure.time,
-                              "risk":0}};
+                              //"risk":0
+                            }};
 
 
       routeGeoJSON.features.push(geoJSON);
@@ -338,7 +338,8 @@ function toGeoJson(){
                "geometry":{"type": "Point", "coordinates":[route.routes[0].sections[k].intermediateStops[j].departure.place.location.lng, route.routes[0].sections[k].intermediateStops[j].departure.place.location.lat]},
                "properties":{ "name":route.routes[0].sections[k].intermediateStops[j].departure.place.name,
                                "time":route.routes[0].sections[k].intermediateStops[j].departure.time,
-                               "risk":0}};
+                               //"risk":0
+                             }};
 
         routeGeoJSON.features.push(geoJSON);
         //console.log(routeGeoJSON);
@@ -349,7 +350,8 @@ function toGeoJson(){
              "geometry":{"type": "Point", "coordinates":[route.routes[0].sections[k].arrival.place.location.lng, route.routes[0].sections[k].arrival.place.location.lat]},
              "properties":{ "name":route.routes[0].sections[k].arrival.place.name,
                              "time":route.routes[0].sections[k].arrival.time,
-                             "risk":0}};
+                             //"risk":0
+                           }};
 
       //console.log(geoJSON.geometry.coordinates,geoJSON.properties.name,geoJSON.properties.time);
       routeGeoJSON.features.push(geoJSON);
@@ -357,7 +359,7 @@ function toGeoJson(){
   }console.log(routeGeoJSON);
 
   currentClient.rides.push(routeGeoJSON);
-
+console.log(currentClient.rides);
 }
 //speichert die Informationen des aktuell eingeloggten Users
 function extractClientData(){
@@ -411,6 +413,7 @@ function updateDB(){
     headers: {
       'Content-Type': 'application/json'}
     }).then(res=>{if (res.ok) return res.json();});
+    console.log(rides);
     //location.reload();
 }
 function addToDatabase(routeGeoJSON){

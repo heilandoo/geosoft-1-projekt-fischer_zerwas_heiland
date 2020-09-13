@@ -92,8 +92,10 @@
         <p id='patientRisk'></p>
 
 
-        <p id="patientInfoHead">Eingetragene Fahrten: </p>
+        <p id="patientInfoHead">Eingetragene Fahrten: <br/> <span style="font-weight: normal">(rot = erhöhtes Infektionsrisiko,<br/> grün = geringes Infektionsrisiko)</span></p>
+        <br/>
         <p id='patientRides'><ul id='ul'><br/> </ul></p>
+        <input type="button" value="Ausgewählte Fahrten anzeigen" id="refresh" onclick="plotRides()"/>
       </div>
       <div class="col-lg-6" id="mapid"></div>
         <script src="/clientPage/dataOverview.js"/></script>

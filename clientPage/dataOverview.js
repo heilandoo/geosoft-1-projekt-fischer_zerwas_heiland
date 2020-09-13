@@ -4,8 +4,9 @@ var database;
 
 
 fetchDatabase();
-var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-
+var mymap = L.map('mapid').setView([51.653, 10.203], 6);
+createMap();
+function createMap(){
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaGVpbGFuZG9vIiwiYSI6ImNrYWM2MTN2YjFkaTgyd3F3czRwYmRhcWcifQ.ehq-ZqczEZiBcFwaZC0jDg', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
@@ -13,7 +14,28 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     tileSize: 512,
     zoomOffset: -1,
     accessToken: 'pk.eyJ1IjoibWE5ZGFsZW44IiwiYSI6ImNrYTZ4ZGdqNDBibWUyeHBuN3JmN2lrdDcifQ.SgZHAThfZLyx2Avk3th2Lg'
-}).addTo(mymap);
+}).addTo(mymap);}
+
+function matchRides(){
+  var pooledRides=[];
+  for(var a=0; a<database.length; a++){
+    if(database[a].rides){
+    if(database[a].doc==false){
+      for (var b=0; b<database[a].rides.length; b++){
+        if(database[a].rides[b].contaminatedRide==1){
+          for(var c=0; c<database[a].rides[b].features.length; c++){
+            if(database[a].username!=currentClient.username){
+            pooledRides.push([database[a].rides[b].features[c].properties.name, database[a].rides[b].features[c].properties.time]);
+          }
+        }
+        }
+        }
+      }
+    }
+
+  }
+  console.log(pooledRides);
+}
 
 function showData(){
   for(var i=0; i<database.length; i++){
@@ -23,23 +45,86 @@ function showData(){
       document.getElementById('general').innerHTML='<b>'+'Übersicht: '+'</b>'+currentClient.username;
       document.getElementById('patientCoronaStatus').innerHTML=currentClient.coronaStatus;
       document.getElementById('patientRisk').innerHTML=currentClient.risk;
-      createRidesList(currentClient);
+
       return;
     }
   }
 
 }
-//liste aller rides des Users
-function createRidesList(currentClient){
 
-  var ul = document.getElementById('ul');
+function plotRides(){
+
+  mymap.eachLayer(function (layer) {
+  mymap.removeLayer(layer);
+  });
+  createMap();
 
   for(var i=0; i<currentClient.rides.length; i++){
+    var checkbox=document.getElementById('checkboxid'+i);
+    //console.log(checkbox);
+    if(checkbox.checked){
+      //console.log(checkbox.checked);
+    var ride=[];
+    for(var j=0; j<currentClient.rides[i].features.length; j++){
+    ride.push([currentClient.rides[i].features[j].geometry.coordinates[1],currentClient.rides[i].features[j].geometry.coordinates[0]]);
+  }
+  //console.log(ride);
+  if(currentClient.rides[i].contaminatedRide==1){
+     var polyline = L.polyline(ride, {color: 'red'}).addTo(mymap);
 
-    var li = document.createElement('li');
+  }
 
+  else{
+       var line = L.polyline(ride, {color: 'green'}).addTo(mymap);
+
+    }
+  }
+  }
+
+}
+
+
+//liste aller rides des Users
+function createRidesList(){
+  document.getElementById('ul').innerHTML='';
+  console.log(currentClient.rides.length);
+  for(var i=0; i<currentClient.rides.length; i++){
+    var ul = document.getElementById('ul');
+    var li = document.createElement('li'+i);
+    var br = document.createElement('br');
+    var checkbox = document.createElement('input');
+    var label= document.createElement("label");
+    label.id='label'+i;
+    if(currentClient.rides[i].contaminatedRide==1){
+      var descriptionRed = document.createTextNode('Fahrt vom: '+(currentClient.rides[i].features[0].properties.time).slice(0,19)+': '+currentClient.rides[i].features[0].properties.name + ' bis ' +currentClient.rides[i].features[currentClient.rides[i].features.length-1].properties.name );
+      label.style.color='red';
+      label.appendChild(descriptionRed);
+
+
+  }
+
+  else{
+    var descriptionGreen = document.createTextNode('Fahrt vom: '+(currentClient.rides[i].features[0].properties.time).slice(0,19)+': '+currentClient.rides[i].features[0].properties.name + ' bis ' +currentClient.rides[i].features[currentClient.rides[i].features.length-1].properties.name );
+    label.appendChild(descriptionGreen);
+      label.style.color='green';
+
+}
+
+    checkbox.type = "checkbox";
+    checkbox.id = "checkboxid" + i;
+
+    label.appendChild(checkbox);
+
+
+
+    //adds all elements to the website
+
+    li.appendChild(checkbox);
+    li.appendChild(label);
+    li.appendChild(br);
     ul.appendChild(li);
-    li.innerHTML=li.innerHTML+currentClient.rides[i];
+    document.getElementById('checkboxid'+i).checked = true;
+
 
   }
 }
@@ -51,9 +136,13 @@ async function fetchDatabase(){
     console.log(result[result.length-1]);
     currentClient=result[result.length-1];
     database=result;
-
-
+    console.log(database);
+    //setTimeout(function loadPage(){window.location = "/clientPage/dataOverview.html";}, 500);
     showData();
+    createRidesList();
+    plotRides();
+    matchRides();
+
 
 
 
@@ -72,7 +161,9 @@ function promise(){
       success: function (result){res(result);},
       error: function (err) {console.log(err);}
     });
+
     });
+
 }
 
 function addToDatabase(user){
