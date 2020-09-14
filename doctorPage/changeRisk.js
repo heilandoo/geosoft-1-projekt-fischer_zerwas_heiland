@@ -122,12 +122,25 @@ function plotRides(){
   console.log(ride);
   if(chosenPatient.rides[i].contaminatedRide==1){
     var polyline = L.polyline(ride, {color: 'red'}).addTo(mymap);
-    // zoom the map to the polyline
-    //mymap.fitBounds(polyline.getBounds());
+    var popupStartR = L.popup({
+                           autoClose: false}).setContent(chosenPatient.rides[i].features[0].properties.name);
+    var startMarkerR=L.marker(ride[0]).addTo(mymap).bindPopup(popupStartR);
+
+    var popupDestiR = L.popup({
+                            autoClose: false}).setContent(chosenPatient.rides[i].features[chosenPatient.rides[i].features.length-1].properties.name);
+    var destiMarkerR=L.marker(ride[ride.length-1]).addTo(mymap).bindPopup(popupDestiR);
+
   }
 
   else{
       var line = L.polyline(ride, {color: 'green'}).addTo(mymap);
+      var popupStartG = L.popup({
+                             autoClose: false}).setContent(chosenPatient.rides[i].features[0].properties.name);
+      var startMarkerG=L.marker(ride[0]).addTo(mymap).bindPopup(popupStartG);
+
+      var popupDestiG = L.popup({
+                              autoClose: false}).setContent(chosenPatient.rides[i].features[chosenPatient.rides[i].features.length-1].properties.name);
+      var destiMarkerG=L.marker(ride[ride.length-1]).addTo(mymap).bindPopup(popupDestiG);
       // zoom the map to the polyline
       //mymap.fitBounds(line.getBounds());
     }

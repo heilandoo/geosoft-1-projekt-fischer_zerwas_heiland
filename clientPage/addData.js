@@ -87,8 +87,14 @@ function showPosition(position) {
     userLocation.features[0].geometry.coordinates[1]=(userLocation.features[0].geometry.coordinates[1]).toFixed(3);
     console.log(userLocation.features[0].geometry.coordinates);
     inputStops.push(userLocation);
-    //document.getElementById('browserLocation').innerHTML=JSON.stringify(userLocation);
-    //console.log(userLocation);
+    var popupLocation = L.popup({
+                           autoClose: false}).setContent('Ihr Standort');
+    var coordinates=[userLocation.features[0].geometry.coordinates[1],userLocation.features[0].geometry.coordinates[0]];
+    var icon=L.icon({iconUrl:'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|abcdef&chf=a,s,ee00FFFF'});
+    L.marker(coordinates, {
+      icon: icon
+    }).addTo(mymap).bindPopup(popupLocation).openPopup();
+    
   refreshDropdown();
   }
   //wird durch button aufgerufen,macht adress eingabe sichtbar
@@ -293,12 +299,11 @@ function drawRoute(){
    }console.log(coordiArray);
    var popupStart = L.popup({
                           autoClose: false}).setContent("Abfahrtsbahnhof");
-    var startMarker=L.marker(coordiArray[0]).addTo(mymap).bindPopup(popupStart).openPopup();//startpunkt== start der Nutzung von ÖPNV --> oder lieber startpunkt== eingegebener Startpunkt?
+    var startMarker=L.marker(coordiArray[0]).addTo(mymap).bindPopup(popupStart).openPopup();
 
     var popupDesti = L.popup({
                            autoClose: false}).setContent("Ankunftsbahnhof");
-     var destiMarker=L.marker(coordiArray[coordiArray.length-1]).addTo(mymap).bindPopup(popupDesti).openPopup();//ziel== ziel der Nutzung von ÖPNV --> oder lieber ziel== eingegebenes ziel?
-
+     var destiMarker=L.marker(coordiArray[coordiArray.length-1]).addTo(mymap).bindPopup(popupDesti).openPopup();
    var polyline=L.polyline(coordiArray, {color: 'blue'}).addTo(mymap);
    mymap.fitBounds(polyline.getBounds());
 }
@@ -372,6 +377,7 @@ function extractClientData(){
       currentClient=database[i];
       console.log(currentClient);
       console.log(currentClient.rides);
+      document.getElementById('general').innerHTML='<b>'+'Übersicht des Nutzers: '+currentClient.username;
       return;
       }
     }
