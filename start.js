@@ -99,6 +99,7 @@ app.delete('/delete-input', (req, res)=> {
 app.put('/update-input',(req, res)=>{
 //console.log('Does it work??? '+ req.body.rides);
   app.locals.db.collection('items').updateOne({"_id":ObjectId(req.body._id)},
+                                              //{$set:{['rides'] : req.body.rides}});
                                               {$set:{['rides'] : req.body.rides, ['coronaStatus']:req.body.coronaStatus}});
 });
 

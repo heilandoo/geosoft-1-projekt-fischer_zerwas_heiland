@@ -250,7 +250,6 @@ function statechangecallback() {
     console.log(route);
     drawRoute();
     toGeoJson();
-    updateDB();
 
     }
 }
@@ -306,7 +305,7 @@ function drawRoute(){
 
 //speichert die ausgewählte route in einem GEoJSON mit den relevanten Informationen
 var routeGeoJSON={"type":"FeaturesCollection", "contaminatedRide":0,
-"features":[],};
+"features":[]};
 function toGeoJson(){
 
   console.log(route);
@@ -359,8 +358,13 @@ function toGeoJson(){
   }console.log(routeGeoJSON);
 
   currentClient.rides.push(routeGeoJSON);
-  setTimeout(function (){console.log(currentClient.rides);}, 500);
+  updateDB();
+  routeGeoJSON={"type":"FeaturesCollection", "contaminatedRide":0,
+  "features":[]};
+  //setTimeout(function (){console.log(currentClient.rides);}, 500);
 }
+
+
 //speichert die Informationen des aktuell eingeloggten Users
 function extractClientData(){
   for(var i=0; i<database.length; i++){
@@ -403,7 +407,7 @@ function promise(){
 //Problem beim aktualisieren wird ein weiteres Array außenrum geschrieben
 function updateDB(){
   var rides=currentClient.rides;
-  var addTo={"_id":currentClient._id, "rides":rides};
+  var addTo={"_id":currentClient._id, "rides":rides, "coronaStatus":currentClient.coronaStatus};
   console.log(rides);
 
   //server request- updating changed coordinates by _id
