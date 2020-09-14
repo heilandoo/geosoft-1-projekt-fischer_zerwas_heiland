@@ -268,7 +268,7 @@ function errorcallback(e) {
 *@desc informs about an incorrect format in the console
 */
 function loadcallback() {
-  if(g.status!="200"){
+  if(x.status!="200"){
     console.log(x.status);
   }
 }
@@ -359,7 +359,7 @@ function toGeoJson(){
   }console.log(routeGeoJSON);
 
   currentClient.rides.push(routeGeoJSON);
-console.log(currentClient.rides);
+  setTimeout(function (){console.log(currentClient.rides);}, 500);
 }
 //speichert die Informationen des aktuell eingeloggten Users
 function extractClientData(){
@@ -414,6 +414,7 @@ function updateDB(){
       'Content-Type': 'application/json'}
     }).then(res=>{if (res.ok) return res.json();});
     console.log(rides);
+    //setTimeout(function(){ console.log(rides); }, 3000);
     //location.reload();
 }
 function addToDatabase(routeGeoJSON){

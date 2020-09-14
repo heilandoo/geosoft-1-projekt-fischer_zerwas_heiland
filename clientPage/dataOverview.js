@@ -16,8 +16,8 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1IjoibWE5ZGFsZW44IiwiYSI6ImNrYTZ4ZGdqNDBibWUyeHBuN3JmN2lrdDcifQ.SgZHAThfZLyx2Avk3th2Lg'
 }).addTo(mymap);}
 
-function matchRides(){
-  var pooledRides=[];
+var pooledRides=[];
+function createPooledRides(){
   for(var a=0; a<database.length; a++){
     if(database[a].rides){
     if(database[a].doc==false){
@@ -26,7 +26,8 @@ function matchRides(){
           for(var c=0; c<database[a].rides[b].features.length; c++){
             if(database[a].username!=currentClient.username){
             pooledRides.push([database[a].rides[b].features[c].properties.name, database[a].rides[b].features[c].properties.time]);
-          }
+            //console.log(database[a].rides[b].features[c].properties.name);
+        }
         }
         }
         }
@@ -35,20 +36,58 @@ function matchRides(){
 
   }
   console.log(pooledRides);
+  createCurrentClientRides();
+
+}
+
+var currentClientRides=[];
+function createCurrentClientRides(){
+  // console.log(currentClient.rides.length);
+  for(var d=0; d<currentClient.rides.length; d++){
+    // console.log(currentClient.rides[d]);
+    for(var f=0; f<currentClient.rides[d].features.length; f++){
+      currentClientRides.push([currentClient.rides[d].features[f].properties.name, currentClient.rides[d].features[f].properties.time]);
+      // console.log(currentClient.rides[d].features[f].properties.name);
+    }
+  }
+  console.log(currentClientRides);
+  matchRides();
+}
+
+function matchRides(){
+  console.log(pooledRides);
+  var riskCounter=0;
+  for (var g=0; g<currentClientRides.length;g++){
+    for (var h=0; h<pooledRides.length; h++){
+      if(currentClientRides[g][0]==pooledRides[h][0] && currentClientRides[g][1]==pooledRides[h][1]){
+        riskCounter++;
+      }
+    }
+  }
+  console.log(riskCounter);
+  if(riskCounter==0){
+    currentClient.risk=0;
+    return;
+  }
+  else if(riskCounter<11){
+    currentClient.risk=1;
+    return;
+  }
+  else if(riskCounter<21){
+    currentClient.risk=2;
+    return;
+  }
+  else if(riskCounter>20){
+    currentClient.risk=3;
+    return;
+  }
 }
 
 function showData(){
-  for(var i=0; i<database.length; i++){
-    if(database[i].username==currentClient.username){
-      currentClient=database[i];
-      console.log(currentClient);
+
       document.getElementById('general').innerHTML='<b>'+'Übersicht: '+'</b>'+currentClient.username;
       document.getElementById('patientCoronaStatus').innerHTML=currentClient.coronaStatus;
       document.getElementById('patientRisk').innerHTML=currentClient.risk;
-
-      return;
-    }
-  }
 
 }
 
@@ -136,18 +175,25 @@ async function fetchDatabase(){
     console.log(result[result.length-1]);
     currentClient=result[result.length-1];
     database=result;
-    console.log(database);
+
+
     //setTimeout(function loadPage(){window.location = "/clientPage/dataOverview.html";}, 500);
+    createCurrentClient();
+    createPooledRides();
     showData();
     createRidesList();
     plotRides();
-    matchRides();
-
-
-
 
   }
 
+function createCurrentClient(){
+  for(var i=0; i<database.length; i++){
+    console.log(database[i].username);
+    if(database[i].username==currentClient.username){
+      currentClient=database[i];
+      console.log(currentClient);
+    return;}}
+}
 /**
 *@function promise
 *@desc sends a request to the server via /item
