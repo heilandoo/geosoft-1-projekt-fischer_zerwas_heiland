@@ -73,7 +73,7 @@ function getLocation(){
     }
 
 }
-
+var apiHere;
 function showPosition(position) {
 
     let userLocation = {"type":"FeatureCollection",
@@ -94,9 +94,16 @@ function showPosition(position) {
     L.marker(coordinates, {
       icon: icon
     }).addTo(mymap).bindPopup(popupLocation).openPopup();
-    
+    console.log(coordinates);
+
+    apiHere='https://transit.router.hereapi.com/v8/departures?apiKey=yZ1g1aCLN8rvnPJdGaO697MpL44zvnU1aHx2IwgqNgA&in='+coordinates+'&maxPlaces=7';
+    console.log(apiHere);
+  fetchApi(apiHere);
   refreshDropdown();
+
   }
+
+
   //wird durch button aufgerufen,macht adress eingabe sichtbar
 function changeVisibility(){
   document.getElementById('adressInput').style.visibility='visible';
@@ -195,6 +202,94 @@ function refreshDropdown(){
     start.appendChild(opt2);
 
     }
+}
+
+
+/**
+*@function showStations
+*@desc shows Stations in radius around user location
+*/
+function showStations(resultStaDep){
+  console.log(resultStaDep);
+  for (var i=0; i<resultStaDep.boards.length; i++){
+    var stationCoordinates=[];
+
+    stationCoordinates.push(resultStaDep.boards[i].place.location.lat, resultStaDep.boards[i].place.location.lng);
+
+  var popupInfo=document.createElement('ul');
+  popupInfo.appendChild(document.createTextNode(resultStaDep.boards[i].place.name));
+  popupInfo.appendChild(document.createElement("br"));
+  popupInfo.appendChild(document.createElement("br"));
+
+    for(var j=0; j<resultStaDep.boards[i].departures.length; j++){
+
+      var li = document.createElement('li');
+
+      var checkbox = document.createElement('input');
+      checkbox.type = "radio";
+      checkbox.id = "checkboxid" + j;
+      checkbox.name="popup";
+
+
+      li.appendChild(checkbox);
+      li.appendChild(document.createTextNode((resultStaDep.boards[i].departures[j].time).slice(11,16)+' '+resultStaDep.boards[i].departures[j].transport.headsign));
+      popupInfo.appendChild(li);
+
+
+
+}
+var popupCloseStations = L.popup({
+  autoClose: true}).setContent(popupInfo);
+    //autoClose: true}).setContent("Nächste Abfahrten"+JSON.stringify(resultStaDep.boards[i].departures[0]));
+    L.circle(stationCoordinates, {radius: 10}).addTo(mymap).bindPopup(popupCloseStations);
+
+
+
+  }
+
+}
+
+var s = new XMLHttpRequest();
+
+function fetchApi(api){
+
+  s.onload = sloadcallback;
+  s.onerror = serrorcallback;
+  s.onreadystatechange = sstatechangecallback;
+  s.open("GET", api, true);
+  s.send();
+
+}
+
+/**
+*@function sstatechangecallback
+*@desc checking if the XMLHttpRequest is in the correct form, calls mappingUserInput function
+*/
+function sstatechangecallback() {
+  if (s.status == "200" && s.readyState == 4) {
+    var resultStaDep=JSON.parse(s.responseText);
+    //console.log(stations);
+      showStations(resultStaDep);}
+
+
+}
+
+/**
+*@function serrorcallback
+*@desc informs the User about an error
+*/
+function serrorcallback(e) {
+  document.getElementById("error").innerHTML = "errorcallback: check web-console";
+}
+
+/**
+*@function sloadcallback
+*@desc informs about an incorrect format in the console
+*/
+function sloadcallback() {
+  if(s.status!="200"){
+    console.log(s.status);
+  }
 }
 
 //extrahiert alle notwendigen Informationen vom User und erstellt einen API Request link
