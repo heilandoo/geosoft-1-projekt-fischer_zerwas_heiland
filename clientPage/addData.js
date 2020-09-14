@@ -104,7 +104,11 @@ function showPosition(position) {
   }
 
 
-  //wird durch button aufgerufen,macht adress eingabe sichtbar
+
+  /**
+  *@function changeVisibility
+  *@desc makes address input section visible for user
+  */
 function changeVisibility(){
   document.getElementById('adressInput').style.visibility='visible';
 }
@@ -180,7 +184,11 @@ function gloadcallback() {
     console.log(g.status);
   }
 }
-//wird nach hinzufügen einer neuen Nutzer eingabe aktualisiert und zwigt alle möglichkeiten im Dropdown an
+
+/**
+*@function refreshDropdown
+*@desc refreshes dropdown-list and shows all user inputs
+*/
 function refreshDropdown(){
   var start = document.getElementById('start');
   var destination= document.getElementById('destination');
@@ -225,14 +233,26 @@ function showStations(resultStaDep){
 
       var li = document.createElement('li');
 
+      var text=(resultStaDep.boards[i].departures[j].time).slice(0,16)+' '+resultStaDep.boards[i].departures[j].transport.headsign;
       var checkbox = document.createElement('input');
       checkbox.type = "radio";
-      checkbox.id = "checkboxid" + j;
+      checkbox.id = "checkboxid" + i+j;
       checkbox.name="popup";
+      //checkbox.innerHTML+=text;
+      checkbox.onclick=function(){filterPopupInfos(this); }
 
 
+
+      //checkbox.setAttribute("value",text);
+
+      var label =document.createElement("label");
+      label.id="labelid"+i+j;
+      label.innerHTML += text;
+
+      label.appendChild(checkbox);
       li.appendChild(checkbox);
-      li.appendChild(document.createTextNode((resultStaDep.boards[i].departures[j].time).slice(11,16)+' '+resultStaDep.boards[i].departures[j].transport.headsign));
+      li.appendChild(label);
+      //li.appendChild(text);
       popupInfo.appendChild(li);
 
 
@@ -248,6 +268,23 @@ var popupCloseStations = L.popup({
   }
 
 }
+
+function filterPopupInfos(myRadio){
+  var checkboxid=(myRadio.id).slice(10,12);
+  var label=document.getElementById('labelid'+checkboxid).textContent;
+  console.log(label);
+  //console.log(document.getElementById('labelid'+checkboxid));
+  var date=label.slice(0,10);
+  console.log(date);
+
+  var time=label.slice(11,16);
+  console.log(time);
+
+  document.getElementById('start-date').value=date;
+  document.getElementById('start-time').value=time;
+}
+
+
 
 var s = new XMLHttpRequest();
 
@@ -292,7 +329,11 @@ function sloadcallback() {
   }
 }
 
-//extrahiert alle notwendigen Informationen vom User und erstellt einen API Request link
+
+/**
+*@function creatingApi
+*@desc extracts the relevant information from the user input and creates an API-request-link
+*/
 function creatingApi(){
   console.log(inputStops);
   var startInput=document.getElementById('start').value;
@@ -467,6 +508,8 @@ function toGeoJson(){
 
 //speichert die Informationen des aktuell eingeloggten Users
 function extractClientData(){
+  document.getElementById('start-date').value='TT-MM-JJJJ';
+  document.getElementById('start-time').value='HH-MM';
   for(var i=0; i<database.length; i++){
     if(database[i].username==currentClient.username){
       currentClient=database[i];
