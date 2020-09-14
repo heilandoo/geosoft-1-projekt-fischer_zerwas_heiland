@@ -261,11 +261,20 @@ function showStations(resultStaDep){
 var popupCloseStations = L.popup({
   autoClose: true}).setContent(popupInfo);
     //autoClose: true}).setContent("Nächste Abfahrten"+JSON.stringify(resultStaDep.boards[i].departures[0]));
-    L.circle(stationCoordinates, {radius: 10}).addTo(mymap).bindPopup(popupCloseStations);
+    L.circle(stationCoordinates, {radius: 10}).addTo(mymap).bindPopup(popupCloseStations).on('click', onClick);
 
 
 
   }
+
+}
+var popupContent;
+var popupCoordinates;
+function onClick(e){
+  popupContent = e; console.log(popupContent);
+  popupCoordinates=e.latlng;
+  popupContent=popupContent.target._map._popup._content.childNodes[0].data;
+  console.log(popupContent);
 
 }
 
@@ -282,6 +291,14 @@ function filterPopupInfos(myRadio){
 
   document.getElementById('start-date').value=date;
   document.getElementById('start-time').value=time;
+
+  let popupLocation = {"type":"FeatureCollection",
+    "features":[
+        {"type": "Feature",
+        "geometry":{"type": "Point", "coordinates":[ popupCoordinates.lng, popupCoordinates.lat]},
+        "properties":{ "name":popupContent}}]};
+        inputStops.push(popupLocation);
+        refreshDropdown();
 }
 
 
