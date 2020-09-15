@@ -66,7 +66,11 @@ function matchRides(){
     }
   }
   console.log(riskCounter);
-  if(riskCounter==0){
+  if(riskCounter==0 && currentClient.coronaStatus == 'negative'){
+    currentClient.risk=0;
+    return;
+  }
+  else if(riskCounter==0 && currentClient.coronaStatus== 'positive'){
     currentClient.risk=0;
     alert('Ihr aktueller Infektionsstatus ist '+ currentClient.coronaStatus+'.\n'+ 'Das durch Ihre Fahrtenaktivität bedingte Infektionsrisiko liegt bei '+currentClient.risk+'.');
     return;
@@ -90,7 +94,7 @@ function matchRides(){
 
 function showData(){
 
-      document.getElementById('general').innerHTML='<b>'+'Übersicht des Nutzers: '+currentClient.username;
+      document.getElementById('general').innerHTML='<b>'+'Nutzername: '+currentClient.username;
       document.getElementById('patientCoronaStatus').innerHTML=currentClient.coronaStatus;
       document.getElementById('patientRisk').innerHTML=currentClient.risk;
 
@@ -116,11 +120,11 @@ function plotRides(){
   if(currentClient.rides[i].contaminatedRide==1){
     var polyline = L.polyline(ride, {color: 'red'}).addTo(mymap);
     var popupStartR = L.popup({
-                           autoClose: false}).setContent(currentClient.rides[i].features[0].properties.name);
+                           autoClose: false}).setContent('Starthaltestelle: ' + currentClient.rides[i].features[0].properties.name);
     var startMarkerR=L.marker(ride[0]).addTo(mymap).bindPopup(popupStartR);
 
     var popupDestiR = L.popup({
-                            autoClose: false}).setContent(currentClient.rides[i].features[currentClient.rides[i].features.length-1].properties.name);
+                            autoClose: false}).setContent('Endhaltestelle: ' + currentClient.rides[i].features[currentClient.rides[i].features.length-1].properties.name);
     var destiMarkerR=L.marker(ride[ride.length-1]).addTo(mymap).bindPopup(popupDestiR);
 
   }
@@ -129,11 +133,11 @@ function plotRides(){
         var line = L.polyline(ride, {color: 'green'}).addTo(mymap);
 
         var popupStartG = L.popup({
-                                autoClose: false}).setContent(currentClient.rides[i].features[0].properties.name);
+                                autoClose: false}).setContent('Starthaltestelle: ' + currentClient.rides[i].features[0].properties.name);
         var startMarkerG=L.marker(ride[0]).addTo(mymap).bindPopup(popupStartG);
 
         var popupDestiG = L.popup({
-                                 autoClose: false}).setContent(currentClient.rides[i].features[currentClient.rides[i].features.length-1].properties.name);
+                                 autoClose: false}).setContent('Endhaltestelle: ' + currentClient.rides[i].features[currentClient.rides[i].features.length-1].properties.name);
         var destiMarkerG=L.marker(ride[ride.length-1]).addTo(mymap).bindPopup(popupDestiG);
     }
   }

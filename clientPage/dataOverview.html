@@ -25,7 +25,7 @@
    <!-- Popper JS -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
    <!-- Latest compiled JavaScript -->
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
     <!-- ________________________LEAFLET CSS___________________________-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
@@ -34,23 +34,29 @@
 
     <link  href="/clientPage/addData.js"/>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">CoronaApp - NUTZER</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<header>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/clientPage/addData.html">Fahrten eintragen </a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="/clientPage/dataOverview.html">Daten einsehen <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href='/'>Logout</a>
-          </li>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">CoronaApp - Nutzeransicht</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item  ">
+          <a class="nav-link" href="/clientPage/addData.html">Fahrten eintragen  </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/clientPage/dataOverview.html">Daten einsehen <span class="sr-only">(current)</span> </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href='/' >Logout</a>
+        </li>
+
+
+
+
           <!--onclick=deleteItem()__________NICHT BENUTZTE BOOTSTRAP-NAVBAR FUNKTIONEN______________
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -71,34 +77,65 @@
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>-->
+
+
+
       </div>
     </nav>
-    <div id="header">
+
+    <header class="masthead">
+  <div id='header' class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12 text-center">
+        <h1 >Daten einsehen</h1>
+        <h3>Hier können Sie Ihre gespeicherten Daten einsehen.</h3>
+      </div>
+    </div>
+  </div>
+
+        </header>
+    <!--<div id="header">
       <h1>Daten einsehen</h1>
       <h3>Hier können Sie Ihre gespeicherten Daten einsehen.</h3>
-    </div>
+    </div>-->
+
+    </header>
+
   </head>
   </div>
 
   <body>
     <div id="mainContainer" class="row">
       <div class="col-lg-6" id="savedRides">
-        <p id='general'></p>
-        <p id="patientInfoHead">Status einer Covid-19 Erkrankung: </p>
-        <p id='patientCoronaStatus'></p>
+        <h3 id='general'></h3>
+        <br/><p id="patientInfoHead">COVID-19 Status: </p>
+        <p id='patientCoronaStatus'></p> <br/><br/>
 
 
-        <p id="patientInfoHead">Ermittelte Risikostufe: </p>
-        <p id='patientRisk'></p>
+        <p id="patientInfoHead">Ermittelte Risikostufe:  </p>
+        <p id='patientRisk'></p></br><br/>
 
 
-        <p id="patientInfoHead">Eingetragene Fahrten: <br/> <span style="font-weight: normal">(rot = erhöhtes Infektionsrisiko,<br/> grün = geringes Infektionsrisiko)</span></p>
-        <br/>
+        <p id="patientInfoHead">Eingetragene Fahrten: </p>
+        <p> (rot = erhöhtes Infektionsrisiko, grün = geringes Infektionsrisiko) </p>
+        
         <p id='patientRides'><ul id='ul'><br/> </ul></p>
         <input type="button" value="Ausgewählte Fahrten anzeigen" id="refresh" onclick="plotRides()"/>
       </div>
+
       <div class="col-lg-6" id="mapid"></div>
         <script src="/clientPage/dataOverview.js"/></script>
-      </div>
+    </div>
+
+    <!-- Footer vgl: https://mdbootstrap.com/docs/jquery/navigation/footer/-->
+        <footer class="page-footer font-small blue pt-4">
+
+          <!-- Copyright -->
+          <div class="footer-copyright text-center py-3">© 2020 Copyright: Fischer, Heiland, Zerwas - Geosoftware 1
+          </div>
+          <!-- Copyright -->
+
+        </footer>
+
   </body>
 </html>

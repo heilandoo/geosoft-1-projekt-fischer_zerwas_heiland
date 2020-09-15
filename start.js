@@ -28,7 +28,7 @@ app.use(express.json());
 async function connectMongoDB() {
     try {
         app.locals.dbConnection = await mongodb.MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true });
-        app.locals.db = await app.locals.dbConnection.db("coronaDB");
+        app.locals.db = await app.locals.dbConnection.db("coronaDB1");
         console.log("Using db: " + app.locals.db.databaseName);
     }
     catch (error) {

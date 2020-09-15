@@ -4,9 +4,13 @@
 
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <title>Fahrten hinzufügen</title>
 
     <link rel="stylesheet" href="/clientPage/styleGeneral.css"/>
+
+
 
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -20,25 +24,26 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
          crossorigin="anonymous"/>
+
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
          integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-         crossorigin="anonymous"></script>
+         crossorigin="anonymous">
+    </script>
+
     <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
-    <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+  <!--  <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' /> -->
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
-   <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
+
+  <!-- <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" /> -->
 
 
-
-
+<header>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">CoronaApp - NUTZER</a>
+      <a class="navbar-brand" href="#">CoronaApp - Nutzeransicht</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -48,8 +53,8 @@
           <li class="nav-item  active">
             <a class="nav-link" href="/clientPage/addData.html">Fahrten eintragen <span class="sr-only">(current)</span> </a>
           </li>
-          <a class="nav-link" href="/clientPage/dataOverview.html">Daten einsehen </a>
           <li class="nav-item">
+            <a class="nav-link" href="/clientPage/dataOverview.html">Daten einsehen </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href='/' >Logout</a>
@@ -57,24 +62,34 @@
         </div>
         </nav>
 
-    <div id="header">
-      <h1>Fahrten eintragen</h1>
-      <h3>Tragen Sie hier von Ihnen gemachte Fahrten ein.</h3>
-    </div>
+    <header class="masthead">
+      <div id='header' class="container h-100">
+        <div class="row h-100 align-items-center">
+          <div class="col-12 text-center">
+          <h1>Fahrten eintragen</h1>
+          <h3>Tragen Sie Ihre Fahrten ein.</h3>
+          </div>
+        </div>
+      </div>
+
+</header>
+</header>
+
   </head>
 </div>
+
+
   <body>
     <div class="row" id="mainContainer">
       <div class="col-lg-6" id="savedRides">
-        <p id='general'></p>
+        <h3 id='general'></h3>
         <div id="userInput">
 
         </div>
 
+        <br/>
+        <p id="patientInfoHead2"><strong>Neue Fahrt hinzufügen: </strong></p>
 
-
-        <p id="patientInfoHead">Neue Fahrt hinzufügen: </p>
-        <p id='patientCoronaStatus'></p>
 
 
         <div id="input">
@@ -83,30 +98,33 @@
           <button id="buttonAddData" type="button" onclick="changeVisibility()">Adresse wählen</button>
           <button id="buttonAddData" type="button" onclick="setMarker()">in Karte wählen</button>
 
-          <div id='adressInput' style="visibility: hidden" align="right">
-          <label for='street'><strong>Straße</strong> </label>
+
+          <div id='adressInput' style="visibility: hidden" align="left">
+          <br/>
+          <label for='street'> Straße </label>
           <input type='text' id='street' >
 
-          <br/><label for='nr'><strong>Hausnummer</strong></label>
-          <input type='number' id='nr' min='0' max='000'>
+          <label for='nr'> Hausnr. </label>
+          <input type='number' id='nr' min='0' max='000' size="4">
 
-          <br/><label for='city'><strong>Stadt</strong> </label>
+          <br/><label for='city'> Stadt </label>
           <input type='text' id='city' >
-          <button id="buttonAddData" type="button" onclick="geocoding()" >OK</button>
+          <button id="okButton" type="button" onclick="geocoding()" >OK</button>
       </div>
     </div>
       <div id="userInput">
-        <p id="patientInfoHead">Start: </p>
-        <label for="start">Startpunkt</label>
+        <br/>
+        <label for="start":><strong>Startpunkt:</strong></label>
         <select name="start" id="start"></select>
-        <p id='patientRisk'></p>
+        <br/>
+        <br/>
 
-        <p id="patientInfoHead">Ziel: </p>
-        <label for="destination">Zielpunkt</label>
+        <label for="destination"><strong>Zielpunkt:</strong></label>
         <select name="destination" id="destination"></select>
+        <br/>
+        <br/>
 
-        <p id="patientInfoHead">Zeitpunkt: </p>
-        <label for="start-time">Start</label>
+        <label for="start-time"><strong>Zeitpunkt:</strong></label>
         <input id="start-date" type="date" name="start-date" placeholder="YYYY-MM-DD" value="DD:MM:JJJJ">
         <input id="start-time" type="time" name="start-time" value="HH:MM">
       </div>
@@ -116,11 +134,22 @@
 
         <p id='patientRides'><ul id='ul'><br/> </ul></p>
       </div>
-    <div class="col-lg-6"id="mapid"></div>
 
+    <div class="col-lg-6"id="mapid">  </div>
 
     <div id="error">    </div>
     <script src="/clientPage/addData.js"/></script>
   </div>
+  <!-- Footer vgl: https://mdbootstrap.com/docs/jquery/navigation/footer/-->
+      <footer class="page-footer font-small blue pt-4">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2020 Copyright: Fischer, Heiland, Zerwas - Geosoftware 1
+        </div>
+        <!-- Copyright -->
+
+      </footer>
+
+
   </body>
 </html>

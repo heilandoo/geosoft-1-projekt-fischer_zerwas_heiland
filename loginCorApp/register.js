@@ -25,6 +25,7 @@ function checkUser(database){
   console.log(database.length);
   if (database.length==0){
   	addToDatabase(user);
+    alert("Nutzerkonto erstellt");
   }
   else{
     console.log(user);
