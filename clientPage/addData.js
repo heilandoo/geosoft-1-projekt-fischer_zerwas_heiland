@@ -541,7 +541,7 @@ function extractClientData(){
       currentClient=database[i];
       console.log(currentClient);
       console.log(currentClient.rides);
-      document.getElementById('general').innerHTML='<b>'+'Übersicht des Nutzers: '+currentClient.username;
+      document.getElementById('general').innerHTML='<b>'+'Nutzername: '+currentClient.username;
       return;
       }
     }

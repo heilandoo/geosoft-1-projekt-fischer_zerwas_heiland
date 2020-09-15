@@ -94,7 +94,7 @@ function matchRides(){
 
 function showData(){
 
-      document.getElementById('general').innerHTML='<b>'+'Übersicht des Nutzers: '+currentClient.username;
+      document.getElementById('general').innerHTML='<b>'+'Nutzername: '+currentClient.username;
       document.getElementById('patientCoronaStatus').innerHTML=currentClient.coronaStatus;
       document.getElementById('patientRisk').innerHTML=currentClient.risk;
 

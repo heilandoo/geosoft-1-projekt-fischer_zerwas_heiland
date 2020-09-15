@@ -129,3 +129,7 @@ input[type="checkbox"]:checked + label:after {
   font-weight: bold;
   text-align: center;
 }
+
+#footer{
+  text-align: center;
+}
