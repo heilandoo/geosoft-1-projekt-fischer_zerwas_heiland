@@ -88,12 +88,14 @@ function showPosition(position) {
     console.log(userLocation.features[0].geometry.coordinates);
     inputStops.push(userLocation);
     var popupLocation = L.popup({
-                           autoClose: false}).setContent('Ihr Standort');
+                           autoClose: false }).setContent('Ihr Standort');
     var coordinates=[userLocation.features[0].geometry.coordinates[1],userLocation.features[0].geometry.coordinates[0]];
-    var icon=L.icon({iconUrl:'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|abcdef&chf=a,s,ee00FFFF'});
-    L.marker(coordinates, {
+    var icon=L.icon({iconUrl:'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|abcdef&chf=a,s,ee00FFFF',iconAnchor:[10.5, 17], popupAnchor: [0,-15]});
+     L.marker(coordinates, {
       icon: icon
     }).addTo(mymap).bindPopup(popupLocation).openPopup();
+    mymap.setView(coordinates, 13);
+
     console.log(coordinates);
 
     apiHere='https://transit.router.hereapi.com/v8/departures?apiKey=yZ1g1aCLN8rvnPJdGaO697MpL44zvnU1aHx2IwgqNgA&in='+coordinates+'&maxPlaces=7';

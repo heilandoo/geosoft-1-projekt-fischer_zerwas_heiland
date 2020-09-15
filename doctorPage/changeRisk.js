@@ -32,6 +32,7 @@ function dropDown(){
     if(database[i].doc==false){
 
       patients.push(database[i]);
+
     }//console.log(patients);
   }
 
@@ -205,6 +206,7 @@ function checkChanges(){
     plotRides();
   console.log(chosenPatient);
   updateDB();
+  alert('Eingabe erfolgreich aktualisiert.');
 }
 
 
