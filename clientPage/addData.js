@@ -198,7 +198,7 @@ function refreshDropdown(){
   destination.options.length=0;
 
   for(i = 0; i<inputStops.length; i++) {
-    console.log(inputStops[i].features[0].properties.name);
+    //console.log(inputStops[i].features[0].properties.name);
     opt1 = document.createElement('option');
     opt1.value = inputStops[i].features[0].properties.name;
     opt1.innerHTML = inputStops[i].features[0].properties.name;
@@ -297,7 +297,14 @@ function filterPopupInfos(myRadio){
         {"type": "Feature",
         "geometry":{"type": "Point", "coordinates":[ popupCoordinates.lng, popupCoordinates.lat]},
         "properties":{ "name":popupContent}}]};
-        inputStops.push(popupLocation);
+        console.log(inputStops.length);
+        console.log(inputStops[0].features[0].properties.name);
+        console.log(popupContent);
+        for(var u=0; u<inputStops.length; u++){
+          if (inputStops[u].features[0].properties.name == popupContent){ // avoids duplication of stations in dropdown list
+            return;
+        }}
+        inputStops.unshift(popupLocation);
         refreshDropdown();
 }
 
