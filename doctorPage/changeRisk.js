@@ -160,8 +160,8 @@ function checkChanges(){
     chosenPatient.coronaStatus='negative';
   }
 
-  if(rideCheckbox.checked==false){
-    console.log('checkboxcheck');
+  if(rideCheckbox.checked==false){  // contaminated rides are selected by checkboxes
+    //console.log('checkboxcheck');
     for(var i=0; i<chosenPatient.rides.length; i++){
       var checkboxRides=document.getElementById('checkboxid'+i);
       if (checkboxRides.checked){
@@ -172,17 +172,17 @@ function checkChanges(){
       }
     }
     }
-    else{
+    else{ // contaminated rides are selected by time-frame
       var dateFrom=document.getElementById('contaminatedStart').value;
       var dateTo=document.getElementById('contaminatedEnd').value;
-      var dateCheck;
+
 
       var d1 = dateFrom.split("-");
       var d2 = dateTo.split("-");
 
       var from = new Date(d1[2], parseInt(d1[1])-1, d1[0]);  // -1 because months are from 0 to 11
       var to   = new Date(d2[2], parseInt(d2[1])-1, d2[0]);
-
+      checkContaminatedRidesTime(to,from);/*
       for(var k=0; k<chosenPatient.rides.length; k++){
         dateCheck=chosenPatient.rides[k].features[0].properties.time;
         dateCheck=dateCheck.slice(0,10);
@@ -199,16 +199,35 @@ function checkChanges(){
 
         }
       }
-
-
+      */
 
     }
+
     plotRides();
   console.log(chosenPatient);
   updateDB();
   alert('Eingabe erfolgreich aktualisiert.');
 }
 
+function checkContaminatedRidesTime(to, from){
+  var dateCheck;
+  for(var k=0; k<chosenPatient.rides.length; k++){
+    dateCheck=chosenPatient.rides[k].features[0].properties.time;
+    dateCheck=dateCheck.slice(0,10);
+    var c = dateCheck.split("-");
+    var check = new Date(c[2], parseInt(c[1])-1, c[0]);
+    //console.log(dateFrom,dateCheck);
+
+    if((check.getTime() <= to.getTime() && check.getTime() >= from.getTime())){
+      chosenPatient.rides[k].contaminatedRide=1;
+
+    }
+    else{
+      chosenPatient.rides[k].contaminatedRide=0;
+      
+    }
+  }
+}
 
 
 function updateDB(){
