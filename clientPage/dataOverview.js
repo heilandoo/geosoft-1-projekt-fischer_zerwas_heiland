@@ -136,6 +136,15 @@ function matchRides(){
   }
 }
 
+/*
+  var ev = document.getElementById('infobox');
+ev.onmouseover = function() {
+  document.getElementById('popupInfo').style.display = 'block';
+}
+ev.onmouseout = function() {
+  document.getElementById('popupInfo').style.display = 'none';
+}
+*/
 
 /**
 *@function showData

@@ -32,6 +32,8 @@
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
     <link  href="/clientPage/addData.js"/>
 
 <header>
@@ -105,6 +107,8 @@
   </div>
 
   <body>
+
+    </style>
     <div id="mainContainer" class="row">
       <div class="col-lg-6" id="savedRides">
         <h3 id='general'></h3>
@@ -112,13 +116,23 @@
         <p id='patientCoronaStatus'></p> <br/><br/>
 
 
-        <p id="patientInfoHead">Ermittelte Risikostufe:  </p>
+        <p id="patientInfoHead">Ermittelte Risikostufe: <a href="#" data-toggle="tooltip" title="Skala der Risikostufe:
+          (gemessen an gemeinsamen Halten mit einem infizierten Mitfahrer)
+
+          Risikostufe 0 = 0
+          Risikostufe 1 = 1-10
+          Risikostufe 2 = 11-20
+          Risikostufe 3 = >20">
+<i class="fa fa-question-circle" id='infobox'></i></a></p>
+
+          <!--<i class="fa fa-question-circle" id='infobox'></i>-->
+
         <p id='patientRisk'></p></br><br/>
 
 
-        <p id="patientInfoHead">Eingetragene Fahrten: </p>
+        <p id="patientInfoHead">Eingetragene Fahrten:  </p>
         <p> (rot = erhöhtes Infektionsrisiko, grün = geringes Infektionsrisiko) </p>
-        
+
         <p id='patientRides'><ul id='ul'><br/> </ul></p>
         <input type="button" value="Ausgewählte Fahrten anzeigen" id="refresh" onclick="plotRides()"/>
       </div>

@@ -28,7 +28,6 @@ describe('api response', function () {
 
 
 
-
 /*
 
 var requester =chai.request(app);
@@ -47,35 +46,26 @@ describe('api response', function () {
 
 });
 */
+
+
 var mongoose = require('mongoose');
 var request  = require('request');
-var db =require('db');
-var mongo= require('mongo');
-
 
 describe('Access to DB', function(){
-  before(function (done) {
-    
-    db.getMongo().getDBNames();
 
-    mongoose.connect('mongodb://localhost/corona', done());
-  });
         it('successfully connected', function(done){
-          //mongoose.connect('mongodb://localhost:27017/myapp',{ useNewUrlParser: true });
+          mongoose.connect('mongodb://localhost:27017/coronaDB1',{ useNewUrlParser: true });
           mongoose.connection.once('open', function () {
-            console.log(mongoose.connection);
+
             if(mongoose.connection.readyState==1){
               console.log('readyState equals 1');
               done();}
-            else{ console.log('not properly connected');}
+
+            else{
+              console.log('not properly connected');}
+
     }).on('error', function () {
         console.log('Connection error : ', error);
     });
 });
-          //var database = mongoose.connect("mongodb://localhost:27017",{ useNewUrlParser: true });
-            //request.get("http://localhost:3000/item", (error, response, body) => {
-
-            //expect(body).to.be.an('object');
-            //expect(body.length).to.equal(1);
-
 });
