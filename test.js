@@ -1,65 +1,25 @@
-function geocoding(address){
-
-//#####your accessToken#########################################################
-  var access_token="pk.eyJ1IjoibWE5ZGFsZW44IiwiYSI6ImNrYTZ4ZGdqNDBibWUyeHBuN3JmN2lrdDcifQ.SgZHAThfZLyx2Avk3th2Lg";
-
-  var resource ="https://api.mapbox.com/geocoding/v5/mapbox.places/"+ address[0]+ "%20"+ address[1] +"%20" + address[2] +".json?country=DE&access_token="+access_token;
-  //console.log(resource);
-  //if (inputMarker != undefined){inputMarker.remove();}
-    g.onload = gloadcallback;
-    g.onerror = gerrorcallback;
-    g.onreadystatechange = gstatechangecallback;
-    g.open("GET", resource, true);
-    g.send();
-
-}
-
-
-
-/**
-*@function gstatechangecallback
-*@desc checking if the XMLHttpRequest is in the correct form, calls mappingUserInput function
-*/
-function gstatechangecallback() {
-  if (g.status == "200" && g.readyState == 4) {
-
-    convertedAdress = g.responseText;
-    convertedAdress= JSON.parse(convertedAdress);
-    return convertedAdress.features.properties.geometry.coordinates.length;
-    }
-}
-
-
-
-/**
-*@function gerrorcallback
-*@desc informs the User about an error
-*/
-function gerrorcallback(e) {
-  document.getElementById("error").innerHTML = "errorcallback: check web-console";
-}
-
-
-
-/**
-*@function gloadcallback
-*@desc informs about an incorrect format in the console
-*/
-function gloadcallback() {
-  if(g.status!="200"){
-    console.log(g.status);
-  }
-}
+//________________________________________________________________________________________________________________________________
+//####################################please insert API key here##################################################################
+var apiKey = 'yZ1g1aCLN8rvnPJdGaO697MpL44zvnU1aHx2IwgqNgA';
 
 var assert = require('assert');
+var chai=require('chai'),
+  chaiHTTP=require('chai-http');
+  chai.use(chaiHTTP);
+var expect = chai.expect;
 
 
 describe('api response', function () {
 
-        var address1 = ['Kanalstraße',60,'Münster'];
-        var address2 = ['Mendelstraße',2,'Münster'];
-        var address3 = ['Mecklenburger Straße',32,'Münster'];
+        var coordinates=[7.622795, 51.959817];
+        var resource ='https://transit.router.hereapi.com/v8/departures?apiKey='+apiKey+'&in='+coordinates+'&radius=1000';
 
-        it('api response contains two coordinates', function () {
-            assert.equal(geocoding(address1),2);
+        it('api is valid', function (done) {
+          chai.request(resource)
+          .get('/')
+          .end(function(err, res) {
+            expect(res).to.have.status(200);
+            done();
+          });
+          });
 });
