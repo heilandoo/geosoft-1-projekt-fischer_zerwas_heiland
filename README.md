@@ -1,4 +1,4 @@
-<h1><strong>Geosoftware 1 - Exercise 7</strong></h1>
+<h1><strong>Geosoftware 1 - Projektarbeit</strong></h1>
 <h4><strong> by Cornelius Zerwas, Ole Heiland, Magdalena Fischer</strong></h4>
 <p> This Repository contains all the scripts for the exercise 7 for the Geosoftware 1 course.<br/>
     The project has two HTML pages. On the first page all the busstops from Münster are displayed in a map.
