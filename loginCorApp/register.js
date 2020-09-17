@@ -4,76 +4,82 @@
 *01.08.2020
 */
 
-// Below function Executes on click of login button.
+//****various Linter configs****
+// jshint esversion: 6
+// jshint browser: true
+// jshint node: true
+// jshint -W097
+
+
+//declaration of variables
 var database;
 var user;
+
+/**
+*@function checkDatabase
+*@desc creates new user accounts based on user information
+*/
+
 function checkDatabase(){
   var username = document.getElementById("username").value;
   var password = document.getElementById("password").value;
   var doc;
   var checkbox = document.getElementById("doc");
-  if(checkbox.checked){
+
+  if(checkbox.checked){ // to differentiate doctors and patients
     doc=true;
   }
-  else{ doc=false;}
-  console.log(doc);
-  user= {"username": username, "password": password, "doc":doc, "risk":0, "coronaStatus":'negative', "rides":[]};
-  console.log(user);
-  //addToDatabase(user);
+  else{ doc=false;} // to differentiate doctors and patients
+
+  user= {"username": username, "password": password, "doc":doc, "risk":0, "coronaStatus":'negative', "rides":[]}; // filling user profiles with default information
   fetchDatabase();
   return user;
   }
 
-function checkUser(database){
+
+  /**
+  *@function checkUser
+  *@desc checks if its possible to create requested profile
+  */
+
+function checkUser(database){ //checks if there is an input
   if (user.username==''|| user.password==''){
     alert("Eingabe fehlt");
     return;}
-  console.log(database.length);
-  if (database.length==0){
+
+  if (database.length==0){ //only for the first registration
   	addToDatabase(user);
     alert("Nutzerkonto erstellt");
   }
-  else{
-    console.log(user);
+
+  else {
     for (var i=0; i<database.length; i++){
-      console.log(database[i][username]);
-      if(database[i].username==user.username){
+      if(database[i].username==user.username){ // checks for duplication of username
         alert("Benutzername bereits vergeben");
-      return;}
+      return;
+      }
     }
+    //creates new user profile
       addToDatabase(user);
       alert("Nutzerkonto erstellt");
       return;
     }
-
-  /*alert ("Login successfully");
-  window.location = "success.html"; // Redirecting to other page.
-  return false;
-  }
-  else{
-  attempt --;// Decrementing by one.
-  alert("You have left "+attempt+" attempt;");
-  // Disabling fields after 3 attempts.
-  if( attempt == 0){
-  document.getElementById("username").disabled = true;
-  document.getElementById("password").disabled = true;
-  document.getElementById("submit").disabled = true;
-  return false;
-  }
-  }*/
 }
 
-//var length;
+
+/**
+*@function fetchDatabase
+*@desc sends a request to the server via /item for fetching the database, awaits till the database is loaded
+*/
 
 async function fetchDatabase(){
 
   let result =await promise();
-  //document.getElementById('databaseContent').innerHTML=JSON.stringify(result);
   console.log(result);
   checkUser(result);
   database=JSON.stringify(result);
-
 }
+
 
 /**
 *@function promise
@@ -81,7 +87,6 @@ async function fetchDatabase(){
 */
 
 function promise(){
-
   return new Promise(function (res, req){
     $.ajax({
       url:"/item",
@@ -91,15 +96,19 @@ function promise(){
     });
 }
 
+
+/**
+*@function addToDatabase
+*@desc saves a newly created Profile to the database
+*/
+
 function addToDatabase(user){
 	fetch('/save-input', {
-                            method: 'post',
-                            body: JSON.stringify(user),
-                            headers: {
-                              'Accept': 'application/json',
-                              'Content-Type': 'application/json'
-                            }
-                          });
-
-
+        method: 'post',
+        body: JSON.stringify(user),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
 }

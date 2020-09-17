@@ -668,7 +668,7 @@ function extractClientData(){
 
 /**
 *@function fetchDatabase
-*@desc sends a request to the server via /item for fetching the database
+*@desc sends a request to the server via /item for fetching the database, awaits till the database is loaded
 */
 
 async function fetchDatabase(){
