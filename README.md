@@ -1,14 +1,17 @@
-<h1><strong>Geosoftware 1 - Projektarbeit</strong></h1>
+<h1><strong>Geosoftware 1 - Project </strong></h1>
 <h4><strong> by Cornelius Zerwas, Ole Heiland, Magdalena Fischer</strong></h4>
-<p> This Repository contains all the scripts for the exercise 7 for the Geosoftware 1 course.<br/>
-    The project has two HTML pages. On the first page all the busstops from Münster are displayed in a map.
-    If they are clicked, the next busconnections will be shown in the table below. 
-    Also all the Objects can be loaded from the Mongodb database. If there are already some entries, the distance to the next Busstop can be calculated.
-    <br/>
-    On the second HTML page- a user can enter locations. Whether using an adress, the browser location or dropping a marker.
-    All Points will be safed in the Database. After loading the Database to the Website again, single or multiple Objects can be deleted.
-    Using the Update button, after checking one Object, loads the coordinates to an textarea so they can be changed. Afterwards they are updated in the database.</p>
+<p> This Repository contains all the scripts for the project of the Geosoftware 1 course.<br/>
+    The project contains five HTML pages. </p>
+   
+<p> An additional feature of this webapp is the quantification of the Corona-risk of the patients. This is measured by the public transport stations that a selected patient has shared with an infected person. As the infection risk of a patient that is caused by other persons in the public transport depends on the time for which these two people have shared a ride, this application consideres several risk-levels. The risk-levels are structured as follows:
+    risklevel 0 -> 0 stations shared with an infected person
+    risklevel 1 -> 1-10 stations shared with an infected person
+    risklevel 2 -> 11-20 stations shared with an infected person
+    risklevel 3 -> more than 20 stations shared with an infected person.
     
+   
+   </p>
+   
 <h2>Getting Started</h2>
 <p> I used npm express and Mongodb for that project. Installing the server, set the main page to "mainIndex.html" and the start scripts to "node start.js"
     <br/><strong>Packages</strong><br/>
@@ -19,6 +22,7 @@
     For the mapping and the geocoding I used Mapbox.<br/>
     --> Please fill your accessTokens into the scripts. Twice in "usermap.js", once in "map.js"
     </p>
+    
 <h2>For Testing</h2>
 npm install --global mocha <br/>
 npm install @turf/bearing <br/>
