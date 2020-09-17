@@ -3,11 +3,11 @@
 <p> This Repository contains all the scripts for the project of the Geosoftware 1 course.<br/>
     The project contains five HTML pages. </p>
    
-<p> An additional feature of this webapp is the quantification of the Corona-risk of the patients. This is measured by the public transport stations that a selected patient has shared with an infected person. As the infection risk of a patient that is caused by other persons in the public transport depends on the time for which these two people have shared a ride, this application consideres several risk-levels. The risk-levels are structured as follows:
-    risklevel 0 -> 0 stations shared with an infected person
-    risklevel 1 -> 1-10 stations shared with an infected person
-    risklevel 2 -> 11-20 stations shared with an infected person
-    risklevel 3 -> more than 20 stations shared with an infected person.
+<p> An additional feature of this webapp is the quantification of the Corona-risk of the patients. This is measured by the public transport stations that a selected patient has shared with an infected person. As the infection risk of a patient that is caused by other persons in the public transport depends on the time for which these two people have shared a ride, this application consideres several risk-levels. The risk-levels are structured as follows:<br/>
+    risklevel 0 -> 0 stations shared with an infected person<br/>
+    risklevel 1 -> 1-10 stations shared with an infected person<br/>
+    risklevel 2 -> 11-20 stations shared with an infected person<br/>
+    risklevel 3 -> more than 20 stations shared with an infected person.<br/>
     
    
    </p>
