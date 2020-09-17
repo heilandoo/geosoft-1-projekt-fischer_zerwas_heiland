@@ -1,3 +1,9 @@
+/**
+*@author Magdalena Fischer, Ole Heiland, Cornelius Zerwas
+*m_fisc39@wwu.de, oleheiland@wwu.de, czerwas@uni-muenster.de
+*01.08.2020
+*/
+
 //LEAFLET MAP
 
 
@@ -182,7 +188,8 @@ function checkChanges(){
 
       var from = new Date(d1[2], parseInt(d1[1])-1, d1[0]);  // -1 because months are from 0 to 11
       var to   = new Date(d2[2], parseInt(d2[1])-1, d2[0]);
-      checkContaminatedRidesTime(to,from);/*
+      checkContaminatedRidesTime(to,from);
+      /*
       for(var k=0; k<chosenPatient.rides.length; k++){
         dateCheck=chosenPatient.rides[k].features[0].properties.time;
         dateCheck=dateCheck.slice(0,10);
@@ -224,7 +231,7 @@ function checkContaminatedRidesTime(to, from){
     }
     else{
       chosenPatient.rides[k].contaminatedRide=0;
-      
+
     }
   }
 }
@@ -273,7 +280,7 @@ function updateDB(){
       });
       });
   }
-
+/*
   function addToDatabase(user){
   	fetch('/save-input', {
                               method: 'post',
@@ -286,3 +293,4 @@ function updateDB(){
 
 
   }
+*/

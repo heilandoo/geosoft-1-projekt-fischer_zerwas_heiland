@@ -1,3 +1,9 @@
+/**
+*@author Magdalena Fischer, Ole Heiland, Cornelius Zerwas
+*m_fisc39@wwu.de, oleheiland@wwu.de, czerwas@uni-muenster.de
+*01.08.2020
+*/
+
 var database;
 var user;
 var client;
