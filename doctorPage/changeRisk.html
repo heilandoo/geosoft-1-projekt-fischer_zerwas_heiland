@@ -86,23 +86,23 @@
     <div class="row" id="mainContainer">
 
     <div class='col-lg-6' id="patients">
-      <h4>Liste aller Patienten</h4>
+      <h4>Patientenprofil</h4>
 
       <label for="patientDropdown">Bitte wählen Sie einen Patienten:</label>
       <select name="patientDropdown" id="patientDropdown">
         <option value = 'Nutzer wählen'> </option>
       </select>
       <div id="patientInfo">
-        <p id="patientInfoExplainer">Sie sehen alle Relevanten Informationen über den gewählten Patienten.
+        <p id="patientInfoExplainer">Sie sehen alle relevanten Informationen des gewählten Patienten.
           Bitte aktualisieren Sie - falls nötig - den aktuellen Status der
           Erkrankung und das Risiko der getätigten Fahrten.</p>
 
-          <p id="patientInfoHead">Status einer Covid-19 Erkrankung: </p>
-          <p id='patientCoronaStatus'></p>
+          <p id="patientInfoHead2">Status einer Covid-19 Erkrankung: </p>
+          <p id='patientCoronaStatus'></p><br/>
           <input id="confirm" type="checkbox" />
           <label for="confirm">Positiver Test?</label>
           <br/>
-          <input id="timeFrame" type="checkbox" autocomplete="off">Zeitraum hinzufügen</input>
+          <input id="timeFrame" type="checkbox" autocomplete="off">Zeitraum für Risikofahrten hinzufügen</input>
           <div id='addTime' style="visibility: hidden" >
             <label for="contaminatedStart">Beginn des Risikozeitraumes</label>
             <input id="contaminatedStart" type="date" name="contaminatedStart" placeholder="YYYY-MM-DD" value="DD:MM:JJJJ">
@@ -110,8 +110,6 @@
             <label for="contaminatedEnd">Ende des Risikozeitraumes</label>
             <input id="contaminatedEnd" type="date" name="contaminatedEnd" placeholder="YYYY-MM-DD" value="DD:MM:JJJJ">
           </div>
-          <p id="patientInfoHead">Ermittelte Risikostufe: </p>
-          <p id='patientRisk'></p>
 
 
           <p id="patientInfoHead">Eingetragene Fahrten: </p>

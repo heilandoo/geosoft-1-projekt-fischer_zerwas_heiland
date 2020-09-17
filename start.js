@@ -95,13 +95,20 @@ app.delete('/delete-input', (req, res)=> {
   app.locals.db.collection('items').deleteOne({"_id":ObjectId(req.body._id)});
   });
 
-// updates data of the database
+// updates rides and corona status data of the database
 app.put('/update-input',(req, res)=>{
-//console.log('Does it work??? '+ req.body.rides);
   app.locals.db.collection('items').updateOne({"_id":ObjectId(req.body._id)},
                                               //{$set:{['rides'] : req.body.rides}});
                                               {$set:{['rides'] : req.body.rides, ['coronaStatus']:req.body.coronaStatus}});
 });
+
+// updates risk status data of the database
+app.put('/update-risk',(req, res)=>{
+  app.locals.db.collection('items').updateOne({"_id":ObjectId(req.body._id)},
+                                              //{$set:{['rides'] : req.body.rides}});
+                                              {$set:{['risk'] : req.body.risk}});
+});
+
 
 app.listen(port,
    () => console.log(`Example app

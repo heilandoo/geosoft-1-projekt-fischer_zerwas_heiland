@@ -24,8 +24,15 @@ var inputStops=[];//dropdown choices after adding by the user
 var apiHere;
 
 var mymap = L.map('mapid').setView([51.653, 10.203], 6);
+createMap();
 fetchDatabase(); // loads database
 
+/**
+*@function createMap
+*@desc creates and initalizes map
+*/
+
+function createMap(){
 // initialization of mapbox
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token='+access_token, {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -35,6 +42,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1,
     accessToken: access_token,
 }).addTo(mymap);
+}
 
 // creating a Toolbar on the Mapboxmap only option to set a marker
 
@@ -121,7 +129,7 @@ function showPosition(position) {
     userLocation.features[0].geometry.coordinates[0]=(userLocation.features[0].geometry.coordinates[0]).toFixed(3);
     userLocation.features[0].geometry.coordinates[1]=(userLocation.features[0].geometry.coordinates[1]).toFixed(3);
 
-    inputStops.push(userLocation);
+
     var popupLocation = L.popup({
                            autoClose: false }).setContent('Ihr Standort');
     var coordinates=[userLocation.features[0].geometry.coordinates[1],userLocation.features[0].geometry.coordinates[0]];
@@ -136,9 +144,16 @@ function showPosition(position) {
     apiHere='https://transit.router.hereapi.com/v8/departures?apiKey='+apiKey+'&in='+coordinates+'&maxPlaces=7';
     // console.log(apiHere);
   fetchApi(apiHere);
+  for(var u=0; u<inputStops.length; u++){
+    if (inputStops[u].features[0].properties.name == "aktuelle Position"){
+      return;
+    }
+  }
+  inputStops.push(userLocation);
+
   refreshDropdown();
 
-  }
+}
 
 
   /**
@@ -531,6 +546,10 @@ function loadcallback() {
 */
 
 function drawRoute(){
+  mymap.eachLayer(function (layer) {
+  mymap.removeLayer(layer);
+  });
+  createMap();
   var coordiArray=[]; //contains all coordinate pairs in correct order of one route (start,intermediate stops, destination)
 
   // checks if any route is available

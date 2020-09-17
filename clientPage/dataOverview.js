@@ -77,16 +77,19 @@ function matchRides(){
   }
   else if(riskCounter<11){
     currentClient.risk=1;
+    updateDB();
     alert('Ihr aktueller Infektionsstatus ist '+ currentClient.coronaStatus+'.\n'+ 'Das durch Ihre Fahrtenaktivität bedingte Infektionsrisiko liegt bei '+currentClient.risk+'.');
     return;
   }
   else if(riskCounter<21){
     currentClient.risk=2;
+    updateDB();
     alert('Ihr aktueller Infektionsstatus ist '+ currentClient.coronaStatus+'.\n'+ 'Das durch Ihre Fahrtenaktivität bedingte Infektionsrisiko liegt bei '+currentClient.risk+'.');
     return;
   }
   else if(riskCounter>20){
     currentClient.risk=3;
+    updateDB();
     alert('Ihr aktueller Infektionsstatus ist '+ currentClient.coronaStatus+'.\n'+ 'Das durch Ihre Fahrtenaktivität bedingte Infektionsrisiko liegt bei '+currentClient.risk+'.');
     return;
   }
@@ -236,6 +239,26 @@ function promise(){
 
 }
 
+/**
+*@function updateDB
+*@desc overwrites risk status of the logged-in user
+*/
+
+function updateDB(){
+  var addTo={"_id":currentClient._id, "risk":currentClient.risk};
+
+  //server request- updating rides  by _id
+  fetch("/update-risk",{
+    method:'put',
+    body: JSON.stringify(addTo),
+    headers: {
+      'Content-Type': 'application/json'}
+    }).then(res=>{if (res.ok) return res.json();});
+
+    //setTimeout(function(){ console.log(rides); }, 3000);
+    //location.reload();
+}
+/*
 function addToDatabase(user){
   fetch('/save-input', {
                             method: 'post',
@@ -268,3 +291,4 @@ function deleteItem(){
 
 
 }
+*/

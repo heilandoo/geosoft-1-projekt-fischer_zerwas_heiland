@@ -7,8 +7,10 @@
 //LEAFLET MAP
 
 
-
 var mymap = L.map('mapid').setView([51.653, 10.203], 6);
+createMap();
+
+function createMap(){
 
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoiaGVpbGFuZG9vIiwiYSI6ImNrYWM2MTN2YjFkaTgyd3F3czRwYmRhcWcifQ.ehq-ZqczEZiBcFwaZC0jDg', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -18,7 +20,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1,
     accessToken: 'pk.eyJ1IjoibWE5ZGFsZW44IiwiYSI6ImNrYTZ4ZGdqNDBibWUyeHBuN3JmN2lrdDcifQ.SgZHAThfZLyx2Avk3th2Lg'
 }).addTo(mymap);
-
+}
 
 //console.log("hallo");
 var database=[];
@@ -64,7 +66,7 @@ function dropDown(){
         if(chosenPatient.coronaStatus=='positive'){
           document.getElementById('confirm').checked=true;
         }
-        document.getElementById('patientRisk').innerHTML=patients[i].risk;
+        //document.getElementById('patientRisk').innerHTML=patients[i].risk;
         //document.getElementById('patientRides').innerHTML=patients[i].rides;
         console.log(chosenPatient);
         createRidesList();
@@ -121,6 +123,10 @@ function createRidesList(){
 }
 
 function plotRides(){
+  mymap.eachLayer(function (layer) {
+  mymap.removeLayer(layer);
+  });
+  createMap();
   for(var i=0; i<chosenPatient.rides.length; i++){
     var ride=[];
     for(var j=0; j<chosenPatient.rides[i].features.length; j++){

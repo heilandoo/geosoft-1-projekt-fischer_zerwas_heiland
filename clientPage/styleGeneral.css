@@ -55,6 +55,13 @@ ul {
   padding: 1px;
   display: inline-block;
 }
+#patientInfoHead2 {
+  font-weight: bold;
+  width: 300px;
+  height: 10px;
+  padding: 1px;
+  display: inline-block;
+}
 
 #patientRisk{
   display: inline-block;
