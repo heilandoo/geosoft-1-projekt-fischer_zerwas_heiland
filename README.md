@@ -1,5 +1,5 @@
 <h1><strong>Geosoftware 1 - Project </strong></h1>
-<h4><strong> by Cornelius Zerwas, Ole Heiland, Magdalena Fischer</strong></h4><br/>
+<h4><strong> by Cornelius Zerwas, Ole Heiland, Magdalena Fischer</strong></h4>
 
 <p> github-Link: https://github.com/heilandoo/geosoft-1-projekt-fischer_zerwas_heiland </p>
 
@@ -13,7 +13,7 @@
     risklevel 1 -> 1-10 stations shared with an infected person<br/>
     risklevel 2 -> 11-20 stations shared with an infected person<br/>
     risklevel 3 -> more than 20 stations shared with an infected person.<br/>
-    
+This scale is also shown on the webpage and marked as a question mark symbol.    
    </p>
    
 <h2>Getting Started</h2>
