@@ -3,13 +3,12 @@
 <p> This Repository contains all the scripts for the project of the Geosoftware 1 course.<br/>
     The project contains five HTML pages. </p>
    
-<p> An additional feature of this webapp is the quantification of the Corona-risk of the patients. This is measured by the public transport stations that a selected patient has shared with an infected person. As the infection risk of a patient that is caused by other persons in the public transport depends on the time for which these two people have shared a ride, this application consideres several risk-levels. The risk-levels are structured as follows:<br/>
+<p> An additional feature of this webapp is the quantification of the Corona-risk of the patients. This is measured by the public transport stations that a selected patient has shared with an infected person. As the infection risk of a patient that is caused by other persons in the public transport depends on the time for which these two people have shared a ride, this application consideres several risk-levels.<br/>The risk-levels are structured as follows:<br/>
     risklevel 0 -> 0 stations shared with an infected person<br/>
     risklevel 1 -> 1-10 stations shared with an infected person<br/>
     risklevel 2 -> 11-20 stations shared with an infected person<br/>
     risklevel 3 -> more than 20 stations shared with an infected person.<br/>
     
-   
    </p>
    
 <h2>Getting Started</h2>
@@ -19,8 +18,11 @@
     npm install --mongodb<br/>
     npm install --body-parser<br/>
     npm install --jquery<br/><br/>
-    For the mapping and the geocoding I used Mapbox.<br/>
-    --> Please fill your accessTokens into the scripts. Twice in "usermap.js", once in "map.js"
+    For the mapping and the geocoding we used Mapbox.<br/>
+     -> information on how to get an accessToken for Mapbox can be found on: https://docs.mapbox.com/help/how-mapbox-works/access-tokens/ <br/>
+    For the public transport API requests we used Here.<br/>
+     -> information on how to get an API-key for Here can be found on: https://developer.here.com/documentation/authentication/dev_guide/topics/api-key-credentials.html
+    --> Please fill your accessToken and the API-key into the scripts. This is necessary to be applied to "dataOverview.js", "addData.js" and "changeRisk.js".
     </p>
     
 <h2>For Testing</h2>
