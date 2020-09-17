@@ -21,8 +21,8 @@
     For the mapping and the geocoding we used Mapbox.<br/>
      -> information on how to get an accessToken for Mapbox can be found on: https://docs.mapbox.com/help/how-mapbox-works/access-tokens/ <br/>
     For the public transport API requests we used Here.<br/>
-     -> information on how to get an API-key for Here can be found on: https://developer.here.com/documentation/authentication/dev_guide/topics/api-key-credentials.html
-    --> Please fill your accessToken and the API-key into the scripts. This is necessary to be applied to "dataOverview.js", "addData.js" and "changeRisk.js".
+     -> information on how to get an API-key for Here can be found on: https://developer.here.com/documentation/authentication/dev_guide/topics/api-key-credentials.html<br/>
+    --> Please fill your accessToken and the API-key into the scripts. This is necessary to be applied to "dataOverview.js", "addData.js" and "changeRisk.js".<br/>
     </p>
     
 <h2>For Testing</h2>
