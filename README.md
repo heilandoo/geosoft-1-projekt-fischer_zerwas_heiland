@@ -6,7 +6,8 @@
 <br/>
 
 <p> This Repository contains all the scripts for the project of the Geosoftware 1 course.<br/>
-    The project contains five HTML pages. </p>
+    The project contains five HTML pages. Besides registration-pages, this application contains seperate interfaces for doctors and for patients. <br/>
+    In general, this application aims at monitoring the Corona infection risk and the Corona test status of patients. Patients are supposed to document their public transportation rides containing departure, destination and date. Doctors are authorized to modify the Corona status of their patients. In addition, they are able to categorize the patients rides as contaminated. By doing so, it is possible to monitor which people are exposed to an infection risk as they shared a ride with an infected person. All in all, this application is supposed to help to fight against the Corona pandemic. </p>
    
 <p> An additional feature of this webapp is the quantification of the Corona-risk of the patients. This is measured by the public transport stations that a selected patient has shared with an infected person. As the infection risk of a patient that is caused by other persons in the public transport depends on the time for which these two people have shared a ride, this application consideres several risk-levels.<br/>The risk-levels are structured as follows:<br/>
     risklevel 0 -> 0 stations shared with an infected person<br/>
@@ -23,6 +24,7 @@ This scale is also shown on the webpage and marked as a question mark symbol.
     npm install --mongodb<br/>
     npm install --body-parser<br/>
     npm install --jquery<br/><br/>
+    
     For the mapping and the geocoding we used Mapbox.<br/>
      -> information on how to get an accessToken for Mapbox can be found on: https://docs.mapbox.com/help/how-mapbox-works/access-tokens/ <br/>
     For the public transport API requests we used Here.<br/>
