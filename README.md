@@ -1,5 +1,10 @@
 <h1><strong>Geosoftware 1 - Project </strong></h1>
-<h4><strong> by Cornelius Zerwas, Ole Heiland, Magdalena Fischer</strong></h4>
+<h4><strong> by Cornelius Zerwas, Ole Heiland, Magdalena Fischer</strong></h4><br/>
+
+<p> github-Link: https://github.com/heilandoo/geosoft-1-projekt-fischer_zerwas_heiland </p>
+
+<br/>
+
 <p> This Repository contains all the scripts for the project of the Geosoftware 1 course.<br/>
     The project contains five HTML pages. </p>
    
