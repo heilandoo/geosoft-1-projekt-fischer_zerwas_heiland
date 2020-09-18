@@ -37,6 +37,8 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
 
+   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
   <!-- <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" /> -->
 
 
@@ -84,11 +86,16 @@
       <div class="col-lg-6" id="savedRides">
         <h3 id='general'></h3>
         <div id="userInput">
-
         </div>
 
         <br/>
-        <p id="patientInfoHead2"><strong>Neue Fahrt hinzufügen: </strong></p>
+        <div >
+
+        <p id="patientInfoHead2" class="text-justify"><strong>Neue Fahrt hinzufügen: </strong><br/>
+          Bitte wählen Sie Start- und Endpunkt über die drei untenstehenden Buttons und diese anschließen im Dropdown aus. Legen Sie ebenso einen Startzeitpunkt fest.
+          <br/><a href="#" data-toggle="tooltip" title="Nach Hinzufügen der aktuellen Position können die nächsten Haltestellen und zugehörige Abfahrtszeiten ausgewählt werden.">
+               <i class="fa fa-question-circle" id='infobox'></i></a></p>
+        </div>
 
 
 
@@ -133,7 +140,7 @@
       </div>
 
         <p id='patientRides'><ul id='ul'><br/> </ul></p>
-      </div>
+    </div>
 
     <div class="col-lg-6"id="mapid">  </div>
 

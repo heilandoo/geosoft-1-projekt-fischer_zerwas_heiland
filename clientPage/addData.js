@@ -557,19 +557,23 @@ function drawRoute(){
     alert('Keine Route gefunden. Überprüfe alle Angaben');
     return;
   }
+  if(route.routes[0].sections.length==1 &&route.routes[0].sections[0].type=='pedestrian'){
+    alert('Auf der eingegebenen Strecke gibt es keine ÖPNV-Verbindung!');
+    return;
+  }
+  else{
+    for (var i=0; i<route.routes[0].sections.length; i++){
+       if(route.routes[0].sections[i].type=='transit'){ // add coordinates of start station
+         coordiArray.push([route.routes[0].sections[i].departure.place.location.lat, route.routes[0].sections[i].departure.place.location.lng]);
 
-  for (var i=0; i<route.routes[0].sections.length; i++){
-     if(route.routes[0].sections[i].type=='transit'){ // add coordinates of start station
-       coordiArray.push([route.routes[0].sections[i].departure.place.location.lat, route.routes[0].sections[i].departure.place.location.lng]);
-
-       for (var j=0; j<route.routes[0].sections[i].intermediateStops.length; j++){ //adds coordinates of intermediate stops
-        coordiArray.push([route.routes[0].sections[i].intermediateStops[j].departure.place.location.lat, route.routes[0].sections[i].intermediateStops[j].departure.place.location.lng]);
-        }
-        //adds coordinates of destination station
-        coordiArray.push([route.routes[0].sections[i].arrival.place.location.lat, route.routes[0].sections[i].arrival.place.location.lng]);
+         for (var j=0; j<route.routes[0].sections[i].intermediateStops.length; j++){ //adds coordinates of intermediate stops
+          coordiArray.push([route.routes[0].sections[i].intermediateStops[j].departure.place.location.lat, route.routes[0].sections[i].intermediateStops[j].departure.place.location.lng]);
+          }
+          //adds coordinates of destination station
+          coordiArray.push([route.routes[0].sections[i].arrival.place.location.lat, route.routes[0].sections[i].arrival.place.location.lng]);
+       }
      }
-   }
-
+  }
    // popup and marker for departure station
    var popupStart = L.popup({
                           autoClose: false}).setContent("Abfahrtsbahnhof");
