@@ -31,13 +31,14 @@ app.use(express.json());
 
 async function connectMongoDB() {
     try {
-        app.locals.dbConnection = await mongodb.MongoClient.connect("mongodb://localhost:27017", { useNewUrlParser: true });
+        var mongo_host  = process.env.MONGO_HOST || "localhost"
+        app.locals.dbConnection = await mongodb.MongoClient.connect("mongodb://"+mongo_host+":27017", { useNewUrlParser: true });
         app.locals.db = await app.locals.dbConnection.db("coronaDB1");
         console.log("Using db: " + app.locals.db.databaseName);
     }
     catch (error) {
         console.dir(error);
-        setTimeout(connectMongoDb, 3000);
+        setTimeout(connectMongoDB, 3000);
     }
 }
 //Start connecting
