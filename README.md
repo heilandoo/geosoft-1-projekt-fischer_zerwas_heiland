@@ -41,7 +41,7 @@ This scale is also shown on the webpage and marked as a question mark symbol.
 
 use Dockerfile and docker-compose.yml from this repository<br/>
 docker-compose up --build <br/><br/>
-wait until the mongo container is started and the database is connected
+<strong> wait until the mongo container is started and the database is connected </strong>
 
 
 <h2>For Testing</h2>
