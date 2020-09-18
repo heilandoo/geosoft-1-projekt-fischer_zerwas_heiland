@@ -40,7 +40,7 @@ This scale is also shown on the webpage and marked as a question mark symbol.
     
 <h2>For Testing</h2>
 
-We used Mocha for testing.<br/><br/>
+We used Mocha for testing.<br/>
 
 npm install global mocha <br/>
 npm install chai <br/>
@@ -51,6 +51,7 @@ npm install request <br/><br/>
 npm test
 
 <h2>For Dockerization</h2>
+
 install docker  <br/>
 use Dockerfile and docker-compose.yml from this repository<br/>
 or<br/>
@@ -60,7 +61,7 @@ afterwards<br/> docker-compose up
 <p></p>
 
 <h2>Frameworks and External Libraries</h2>
-We have made use of:<br/>
+We make use of:<br/>
 Bootstrap<br/>
 JQuery<br/>
 Leaflet<br/>
