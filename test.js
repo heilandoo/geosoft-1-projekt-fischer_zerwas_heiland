@@ -2,6 +2,8 @@
 //####################################please insert API key here##################################################################
 var apiKey = 'yZ1g1aCLN8rvnPJdGaO697MpL44zvnU1aHx2IwgqNgA';
 
+
+// testing whether API request works
 var assert = require('assert');
 var chai=require('chai'),
   chaiHTTP=require('chai-http');
@@ -28,25 +30,7 @@ describe('api response', function () {
 
 
 
-/*
-
-var requester =chai.request(app);
-
-describe('api response', function () {
-
-
-        it('api is valid', function (done) {
-          chai.request('/localhost:3000')
-          .get('/item')
-          .listen()
-          .end(function(err, res) {
-            expect(res).to.have.status(200);
-          });
-          });
-
-});
-*/
-
+// testing of database connection
 
 var mongoose = require('mongoose');
 var request  = require('request');
