@@ -36,7 +36,14 @@ This scale is also shown on the webpage and marked as a question mark symbol.
    <strong> --> Please fill your accessToken and the API-key into the scripts. This is necessary to be applied to "dataOverview.js", "addData.js" and "changeRisk.js". </strong><br/>
     </p>
     
-    
+
+<h2>For Dockerization</h2>
+
+use Dockerfile and docker-compose.yml from this repository<br/>
+docker-compose up --build <br/><br/>
+wait until the mongo container is started and the database is connected
+
+
 <h2>For Testing</h2>
 
 We used Mocha for testing.<br/>
@@ -49,15 +56,7 @@ npm install mongoose <br/>
 npm install request <br/><br/>
 npm test
 
-<h2>For Dockerization</h2>
 
-install docker  <br/>
-use Dockerfile and docker-compose.yml from this repository<br/>
-or<br/>
-pull from dockerHub: https://hub.docker.com/repository/docker/ma9dalen8/node-web-app<br/>
-check if all images and containers are deleted <br/>
-afterwards<br/> docker-compose up
-<p></p>
 
 <h2>Frameworks and External Libraries</h2>
 We make use of:<br/>
