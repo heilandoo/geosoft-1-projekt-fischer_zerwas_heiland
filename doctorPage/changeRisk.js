@@ -13,8 +13,8 @@
 //________________________________________________________________________________________________________________________________
 //###############################################################please insert API key and access token here######################
 
-var apiKey = 'yZ1g1aCLN8rvnPJdGaO697MpL44zvnU1aHx2IwgqNgA';
-var access_token = "pk.eyJ1IjoibWE5ZGFsZW44IiwiYSI6ImNrYTZ4ZGdqNDBibWUyeHBuN3JmN2lrdDcifQ.SgZHAThfZLyx2Avk3th2Lg";
+var apiKey = '';
+var access_token = "";
 
 
 var mymap = L.map('mapid').setView([51.653, 10.203], 6);
