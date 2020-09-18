@@ -20,10 +20,11 @@ This scale is also shown on the webpage and marked as a question mark symbol.
 <h2>Getting Started</h2>
 <p> I used npm express and Mongodb for that project. Installing the server, set the main page to "mainIndex.html" and the start scripts to "node start.js"
     <br/><strong>Packages</strong><br/>
-    npm install --express<br/>
-    npm install --mongodb<br/>
-    npm install --body-parser<br/>
-    npm install --jquery<br/><br/>
+    npm install express<br/>
+    npm install mongodb<br/>
+    npm install body-parser<br/>
+    npm install jquery<br/><br/>
+    npm start<br/>
     
     For the mapping and the geocoding we used Mapbox.<br/>
      -> information on how to get an accessToken for Mapbox can be found on: https://docs.mapbox.com/help/how-mapbox-works/access-tokens/ <br/>
@@ -33,10 +34,14 @@ This scale is also shown on the webpage and marked as a question mark symbol.
     </p>
     
 <h2>For Testing</h2>
-npm install --global mocha <br/>
-npm install @turf/bearing <br/>
-npm install @turf/distance <br/>
+npm install global mocha <br/>
+npm install chai <br/>
+npm install chai-http <br/>
+npm install assert <br/>
+npm install mongoose <br/>
+npm install request <br/><br/>
 npm test
+
 <h2>For Dockerization</h2>
 install docker  <br/>
 use Dockerfile and docker-compose.yml from this repository<br/>
@@ -45,3 +50,10 @@ pull from dockerHub: https://hub.docker.com/repository/docker/ma9dalen8/node-web
 check if all images and containers are deleted <br/>
 afterwards<br/> docker-compose up
 <p></p>
+
+<h2>Frameworks and External Libraries</h2>
+We have made use of:<br/>
+Bootstrap<br/>
+JQuery<br/>
+Leaflet<br/>
+Popper<br/>
