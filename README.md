@@ -18,7 +18,7 @@ This scale is also shown on the webpage and marked as a question mark symbol.
    </p>
    
 <h2>Getting Started</h2>
-<p> I used npm express and Mongodb for that project. Installing the server, set the main page to "mainIndex.html" and the start scripts to "node start.js"
+<p> We used npm express and Mongodb for that project. Installing the server, set the main page to "login.html" and the start scripts to "node start.js"
     <br/><strong>Packages</strong><br/>
     npm install express<br/>
     npm install mongodb<br/>
