@@ -1,12 +1,11 @@
 <h1><strong>Geosoftware 1 - Project </strong></h1>
 <h4><strong> by Cornelius Zerwas, Ole Heiland, Magdalena Fischer</strong></h4>
 
-<p> github-Link: https://github.com/heilandoo/geosoft-1-projekt-fischer_zerwas_heiland </p>
+<p><strong> github-Link: https://github.com/heilandoo/geosoft-1-projekt-fischer_zerwas_heiland </strong></p>
 
-<br/>
 
-<p> This Repository contains all the scripts for the project of the Geosoftware 1 course.<br/>
-    The project contains five HTML pages. Besides registration-pages, this application contains seperate interfaces for doctors and for patients. <br/>
+<p> This Repository contains all the scripts for the project of the Geosoftware 1 course.<br/><br/>
+    The project contains five HTML pages. Besides registration-pages, this application contains seperate interfaces for doctors and for patients. <br/><br/>
     In general, this application aims at monitoring the Corona infection risk and the Corona test status of patients. Patients are supposed to document their public transportation rides containing departure, destination and date. Doctors are authorized to modify the Corona status of their patients. In addition, they are able to categorize the patients rides as contaminated. By doing so, it is possible to monitor which people are exposed to an infection risk as they shared a ride with an infected person. All in all, this application is supposed to help to fight against the Corona pandemic. </p>
 
 <h3> Special Feature</h3>
